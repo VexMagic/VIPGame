@@ -19,6 +19,13 @@ public class DayManager : MonoBehaviour
             instance = this;
         }
     }
+    private void Start()
+    {
+        foreach (var item in allBuildings) //triggers all end of day stuff for the buildings
+        {
+            item.EndDay();
+        }
+    }
 
     private void FixedUpdate()
     {

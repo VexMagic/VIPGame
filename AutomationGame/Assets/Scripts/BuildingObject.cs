@@ -12,6 +12,8 @@ public class BuildingObject : MonoBehaviour
     [SerializeField] private bool isWorking;
     [SerializeField] private int amountWorking;
 
+
+
     private void Start()
     {
         DayManager.instance.AddBuilding(this);
@@ -39,10 +41,10 @@ public class BuildingObject : MonoBehaviour
             }
         }
 
-        if (!isWorking)
+        if (!isWorking && workers > 0)
         {
             //checks if building needs an input to work or not
-
+            
             if (buildingType.input.Count == 0) //if input isn't needed, all workers start working
             {
                 isWorking = true;
