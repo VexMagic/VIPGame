@@ -10,9 +10,13 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private Transform cam;
 
+    [SerializeField] private GameObject gridList;
+
     private Dictionary<Vector2, Tile> tiles;//maybe not needed since each tile holds their own pos data
 
     Tile spawnedTile;
+
+    
 
     private void Start()
     {
@@ -41,7 +45,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile.pos = new Vector2(x, y);
                 bool altColorTile = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); //color seperation
                 spawnedTile.Init(altColorTile);
-                
+                spawnedTile.transform.parent = gridList.transform;
                 tiles[spawnedTile.pos] = spawnedTile;
                 if (spawnedTile.pos.x > 10)
                 {

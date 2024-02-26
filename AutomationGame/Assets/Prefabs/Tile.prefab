@@ -179,7 +179,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7501574999371196742}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92e3a31aa123f5049903d5e8c2acfd5b, type: 3}
   m_Name: 
@@ -189,7 +189,7 @@ MonoBehaviour:
   _renderer: {fileID: 646682865367236707}
   highlight: {fileID: 8999528138010058488}
   clickedHighlight: {fileID: 1693420108702266178}
-  pos: {x: 0, y: 0}
+  pos: {x: 15, y: 8}
 --- !u!61 &7731416998296036478
 BoxCollider2D:
   m_ObjectHideFlags: 0
