@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
 public class Building : ScriptableObject
 {
+   
     [SerializeField] private List<InputOutput> Input;
     [SerializeField] private int Days;
     [SerializeField] private List<InputOutput> Output;
@@ -25,6 +26,8 @@ public class Building : ScriptableObject
 
         return true;
     }
+
+
 }
 
 [Serializable]

@@ -12,12 +12,10 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private GameObject gridList;
 
-    private Dictionary<Vector2, Tile> tiles;//maybe not needed since each tile holds their own pos data
+    public Dictionary<Vector2, Tile> tiles;
 
     Tile spawnedTile;
-
     
-
     private void Start()
     {
         GenerateGrid();
@@ -32,6 +30,7 @@ public class GridManager : MonoBehaviour
                 _tile.SetActive(true);
             }
         }
+
     }
     void GenerateGrid()
     {
@@ -47,6 +46,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile.Init(altColorTile);
                 spawnedTile.transform.parent = gridList.transform;
                 tiles[spawnedTile.pos] = spawnedTile;
+
                 if (spawnedTile.pos.x > 10)
                 {
                     spawnedTile.SetActive(false);

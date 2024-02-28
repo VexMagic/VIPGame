@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private Color baseColor, altColor;
+    public bool isOccupied;
+
+    [SerializeField] private Color baseColor, altColor,occupiedColor;
     [SerializeField] public SpriteRenderer _renderer;
     [SerializeField] private GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
 
 
     public Vector2 pos;
+    public Transform worldPos;
 
     private void Start()
     {
+        _renderer = GetComponent<SpriteRenderer>();
     }
+
+    private void Update()
+    {
+        if (isOccupied)
+        {
+            _renderer.color = occupiedColor;
+        }
+    }
+
     public void Init(bool altColorTile)
     {
         _renderer.color = altColorTile ? altColor : baseColor;
@@ -40,6 +53,8 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         clickedHighlight.SetActive(true);
+        worldPos = transform;
+
     }
 
     public void SetActive(bool active)

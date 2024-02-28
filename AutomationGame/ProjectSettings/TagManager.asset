@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Grid
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Grid
+    uniqueID: 2922943995
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

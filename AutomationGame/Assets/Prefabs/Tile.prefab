@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1372023301
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.051833343, g: 0.8584906, b: 0.6251779, a: 1}
@@ -158,8 +158,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1372023301
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -184,12 +184,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3a31aa123f5049903d5e8c2acfd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOccupied: 0
   baseColor: {r: 0.4131764, g: 0.7924528, b: 0.20484152, a: 1}
   altColor: {r: 0.6366962, g: 0.8773585, b: 0.28472763, a: 1}
+  occupiedColor: {r: 0, g: 0, b: 0, a: 0}
   _renderer: {fileID: 646682865367236707}
   highlight: {fileID: 8999528138010058488}
   clickedHighlight: {fileID: 1693420108702266178}
   pos: {x: 15, y: 8}
+  worldPos: {fileID: 0}
 --- !u!61 &7731416998296036478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -286,8 +289,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1372023301
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.31764707}
