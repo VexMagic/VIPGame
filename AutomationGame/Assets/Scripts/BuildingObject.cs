@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BuildingObject : MonoBehaviour
 {
+    public int cost;
+
     [SerializeField] private Building buildingType;
     [SerializeField] private int workers;
     [SerializeField] private int workerLimit;
