@@ -11,9 +11,9 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
 
-
-    public Vector2 pos;
+    public Vector2Int pos;
     public Transform worldPos;
+    public GridObject gridObject;
 
     private void Start()
     {

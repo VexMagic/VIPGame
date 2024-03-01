@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public int gold;
     public TextMeshProUGUI goldDisplay;
 
-    private BuildingObject buildingToPlace;
+    private GridObject buildingToPlace;
     [SerializeField] GridManager grid;
 
     [SerializeField] CustomCursor customCursor;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero);
             if (hit.collider != null)
             {
-                Vector2 tilePos = hit.collider.gameObject.GetComponent<Tile>().pos;
+                Vector2Int tilePos = hit.collider.gameObject.GetComponent<Tile>().pos;
                 tile = grid.GetTileAtPos(tilePos);
             }
 
@@ -48,10 +48,13 @@ public class GameManager : MonoBehaviour
                 return;
             if (!tile.isOccupied && gold >= buildingToPlace.cost)
             {
-                Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
+                GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
                 gold -= buildingToPlace.cost;
                 buildingToPlace = null;
                 tile.isOccupied = true;
+                tile.gridObject = buildingObject;
+                buildingObject.pos = tile.pos;
+                buildingObject.output = customCursor.direction;
                 customCursor.gameObject.SetActive(false);
                 Cursor.visible = true;
             }
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GetBuilding(BuildingObject building)
+    public void GetBuilding(GridObject building)
     {
             customCursor.gameObject.SetActive(true);
             customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;

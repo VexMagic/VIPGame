@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingObject : MonoBehaviour
+public class BuildingObject : GridObject
 {
-    public int cost;
-
     [SerializeField] private Building buildingType;
     [SerializeField] private int workers;
     [SerializeField] private int workerLimit;
@@ -14,14 +12,18 @@ public class BuildingObject : MonoBehaviour
     [SerializeField] private bool isWorking;
     [SerializeField] private int amountWorking;
 
+    public Dictionary<Storage.Resource, int> storage = new Dictionary<Storage.Resource, int>();
 
-
-    private void Start()
+    public override void InputResource(Storage.Resource resource)
     {
-        DayManager.instance.AddBuilding(this);
+        if (!storage.ContainsKey(resource))
+            storage[resource] = 1;
+        else
+            storage[resource]++;
+        Debug.Log(resource + ": " + storage[resource]);
     }
 
-    public void EndDay()
+    public override void EndDay()
     {
         if (isWorking) //checks if people are working in the building
         {
@@ -33,7 +35,7 @@ public class BuildingObject : MonoBehaviour
                 {
                     foreach (InputOutput item in buildingType.output)
                     {
-                        Storage.instance.GainResource(item.resource, item.amount);
+                        OutputResource(item.resource);
                     }
                 }
 
@@ -56,17 +58,37 @@ public class BuildingObject : MonoBehaviour
             {
                 for (int i = 0; i < workers; i++)
                 {
-                    if (buildingType.HasResources()) //... check if they have the resources to start working for each worker
+                    if (HasResources()) //... check if they have the resources to start working for each worker
                     {
                         isWorking = true;
                         amountWorking++; //increase the amount of workers with enough resources
                         foreach (InputOutput item in buildingType.input)
                         {
-                            Storage.instance.SpendResource(item.resource, item.amount); //spend the resources
+                            storage[item.resource] -= item.amount;
                         }
+
+                        Debug.Log("start");
                     }
                 }
             }
         }
+    }
+
+    private bool HasResources() //check if the building has the resources in its storage
+    {
+        foreach (InputOutput item in buildingType.input)
+        {
+            if (storage.ContainsKey(item.resource))
+            {
+                if (storage[item.resource] < item.amount)
+                {
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+
+        return true;
     }
 }

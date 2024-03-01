@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance;
+
     [SerializeField] private int width, height;
 
     [SerializeField] private Tile tile;
@@ -15,7 +17,15 @@ public class GridManager : MonoBehaviour
     public Dictionary<Vector2, Tile> tiles;
 
     Tile spawnedTile;
-    
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
         GenerateGrid();
@@ -39,12 +49,12 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                spawnedTile = Instantiate(tile, new Vector3(x, y), Quaternion.identity);
+                spawnedTile = Instantiate(tile, gridList.transform);
                 spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.pos = new Vector2(x, y);
+                spawnedTile.pos = new Vector2Int(x, y);
                 bool altColorTile = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); //color seperation
                 spawnedTile.Init(altColorTile);
-                spawnedTile.transform.parent = gridList.transform;
+                spawnedTile.transform.localPosition = new Vector3(x, y);
                 tiles[spawnedTile.pos] = spawnedTile;
 
                 if (spawnedTile.pos.x > 10)
@@ -57,7 +67,7 @@ public class GridManager : MonoBehaviour
         cam.transform.position = new Vector3((float)width/ 2 - 0.5f, (float)height / 2 - 0.5f, -10); //cam center
     }
 
-    public Tile GetTileAtPos(Vector2 pos)
+    public Tile GetTileAtPos(Vector2Int pos)
     {
         if(tiles.TryGetValue(pos,out var tile))
         {

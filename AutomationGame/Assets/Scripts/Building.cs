@@ -14,18 +14,18 @@ public class Building : ScriptableObject
     public int days => Days;
     public List<InputOutput> output => Output;
 
-    public bool HasResources()
-    {
-        foreach (var item in input)
-        {
-            if (!Storage.instance.HasResource(item.resource, item.amount))
-            {
-                return false;
-            }
-        }
+    //public bool HasResources()
+    //{
+    //    foreach (var item in input)
+    //    {
+    //        if (!Storage.instance.HasResource(item.resource, item.amount))
+    //        {
+    //            return false;
+    //        }
+    //    }
 
-        return true;
-    }
+    //    return true;
+    //}
 
 
 }

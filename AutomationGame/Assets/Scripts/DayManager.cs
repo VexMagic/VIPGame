@@ -10,7 +10,7 @@ public class DayManager : MonoBehaviour
     private float timer;
     private int dayNumber;
 
-    private List<BuildingObject> allBuildings = new List<BuildingObject>();
+    private List<GridObject> allBuildings = new List<GridObject>();
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class DayManager : MonoBehaviour
         if (timer >= dayTimer) //checks if a day has passed
         {
             dayNumber++;
-            Debug.Log("End day " + dayNumber);
+            //Debug.Log("End day " + dayNumber);
             timer -= dayTimer;
             foreach (var item in allBuildings) //triggers all end of day stuff for the buildings
             {
@@ -42,7 +42,7 @@ public class DayManager : MonoBehaviour
         }
     }
 
-    public void AddBuilding(BuildingObject buildingObject)
+    public void AddBuilding(GridObject buildingObject)
     {
         allBuildings.Add(buildingObject);
     }
