@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TileType
+{
+    None,Forest, OreDeposit
+}
+
 public class Tile : MonoBehaviour
 {
     public bool isOccupied;
@@ -14,6 +19,8 @@ public class Tile : MonoBehaviour
     public Vector2Int pos;
     public Transform worldPos;
     public GridObject gridObject;
+
+    public TileType tileType = TileType.None;
 
     private void Start()
     {

@@ -61,6 +61,16 @@ public class GridManager : MonoBehaviour
                 {
                     spawnedTile.SetActive(false);
                 }
+                if(spawnedTile.pos == new Vector2(2, 2))
+                {
+                    spawnedTile.tileType = TileType.OreDeposit;
+                    spawnedTile._renderer.color = Color.yellow;
+                }
+                if (spawnedTile.pos == new Vector2(4, 5))
+                {
+                    spawnedTile.tileType = TileType.Forest;
+                    spawnedTile._renderer.color = Color.green;
+                }
             }
         }
 
