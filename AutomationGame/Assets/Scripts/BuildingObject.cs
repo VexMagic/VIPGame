@@ -20,7 +20,6 @@ public class BuildingObject : GridObject
             storage[resource] = 1;
         else
             storage[resource]++;
-        Debug.Log(resource + ": " + storage[resource]);
     }
 
     public override void EndDay()
@@ -66,8 +65,6 @@ public class BuildingObject : GridObject
                         {
                             storage[item.resource] -= item.amount;
                         }
-
-                        Debug.Log("start");
                     }
                 }
             }

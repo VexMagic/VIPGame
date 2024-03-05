@@ -19,7 +19,6 @@ public class GridObject : MonoBehaviour
 
     public void SetRotation()
     {
-        //inputArrow.transform.eulerAngles = new Vector3(0, 0, DirectionToFloat(input));
         outputArrow.transform.eulerAngles = new Vector3(0, 0, DirectionToFloat(output));
     }
 
@@ -34,7 +33,14 @@ public class GridObject : MonoBehaviour
         GridObject gridObject = GetObjectInDirection(output, pos);
         if (gridObject != null)
         {
-            gridObject.InputResource(resource);
+            if (gridObject is BuildingObject)
+            {
+                gridObject.InputResource(resource);
+            }
+            else
+            {
+                Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>().SetValues(pos, resource);
+            }
         }
     }
 

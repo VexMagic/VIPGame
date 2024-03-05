@@ -8,6 +8,8 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private int width, height;
 
+    [SerializeField] private Vector2 offset;
+
     [SerializeField] private Tile tile;
 
     [SerializeField] private Transform cam;
@@ -15,6 +17,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject gridList;
 
     public Dictionary<Vector2, Tile> tiles;
+
+    public GameObject resourceObject;
 
     Tile spawnedTile;
 
@@ -64,7 +68,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        cam.transform.position = new Vector3((float)width/ 2 - 0.5f, (float)height / 2 - 0.5f, -10); //cam center
+        cam.transform.position = new Vector3((float)width/ 2 - 0.5f + offset.x, (float)height / 2 - 0.5f + offset.y, -10); //cam center
     }
 
     public Tile GetTileAtPos(Vector2Int pos)

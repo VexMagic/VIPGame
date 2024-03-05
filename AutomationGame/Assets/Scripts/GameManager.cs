@@ -71,9 +71,10 @@ public class GameManager : MonoBehaviour
 
     public void GetBuilding(GridObject building)
     {
-            customCursor.gameObject.SetActive(true);
-            customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
-            Cursor.visible = false;
-            buildingToPlace = building;
+        customCursor.gameObject.SetActive(true);
+        customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
+        customCursor.GetComponent<SpriteRenderer>().color = building.GetComponent<SpriteRenderer>().color;
+        Cursor.visible = false;
+        buildingToPlace = building;
     }
 }
