@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildingObject : GridObject
 {
-    [SerializeField] private Building buildingType;
+    public Building buildingType;
     [SerializeField] private int workers;
     [SerializeField] private int workerLimit;
 
