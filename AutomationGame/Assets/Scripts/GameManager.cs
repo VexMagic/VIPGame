@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldDisplay.text = "Gold: "+gold.ToString();
+        goldDisplay.text = "Gold: " + gold.ToString();
 
-        Build();
+        BuildCheck();
     }
 
-    private void Build()
+    private void BuildCheck()
     {
         if (Input.GetMouseButtonDown(0) && buildingToPlace != null)
         {
@@ -48,15 +48,22 @@ public class GameManager : MonoBehaviour
                 return;
             if (!tile.isOccupied && gold >= buildingToPlace.cost)
             {
-                GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
-                gold -= buildingToPlace.cost;
-                buildingToPlace = null;
-                tile.isOccupied = true;
-                tile.gridObject = buildingObject;
-                buildingObject.pos = tile.pos;
-                buildingObject.output = customCursor.direction;
-                customCursor.gameObject.SetActive(false);
-                Cursor.visible = true;
+                switch (tile.tileType)
+                {
+                    case TileType.None:
+                        Build("Path", tile);
+
+                        break;
+                    case TileType.Forest:
+                        Build("Blacksmith", tile);//placeholder
+
+                        break;
+                    case TileType.OreDeposit:
+                        Build("Mine", tile);
+                        break;
+                    default:
+                        break;
+                }
             }
             #endregion
         }
@@ -68,6 +75,22 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
         }
     }
+    public void Build(string buildingName, Tile tile)
+    {
+        if (buildingToPlace.name == buildingName)
+        {
+            GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
+            gold -= buildingToPlace.cost;
+            //buildingToPlace = null;
+            tile.isOccupied = true;
+            tile.gridObject = buildingObject;
+            buildingObject.pos = tile.pos;
+            buildingObject.output = customCursor.direction;
+            customCursor.gameObject.SetActive(false);
+            Cursor.visible = true;
+        }
+    }
+
 
     public void GetBuilding(GridObject building)
     {
@@ -77,4 +100,5 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         buildingToPlace = building;
     }
+
 }
