@@ -37,8 +37,11 @@ public class GameManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero);
             if (hit.collider != null)
             {
-                Vector2Int tilePos = hit.collider.gameObject.GetComponent<Tile>().pos;
-                tile = grid.GetTileAtPos(tilePos);
+                if (hit.collider.gameObject.GetComponent<Tile>() != null)
+                {
+                    Vector2Int tilePos = hit.collider.gameObject.GetComponent<Tile>().pos;
+                    tile = grid.GetTileAtPos(tilePos);
+                }
             }
 
             #endregion

@@ -647,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 16
   height: 9
-  offset: {x: -5, y: 0}
+  offset: {x: 0, y: 0}
   tile: {fileID: 8905066753540468060, guid: c3bc52d1a3598944aaf2605c002360e5, type: 3}
   cam: {fileID: 1814433695}
   gridList: {fileID: 967822981}
