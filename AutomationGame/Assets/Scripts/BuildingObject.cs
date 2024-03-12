@@ -14,6 +14,9 @@ public class BuildingObject : GridObject
 
     public Dictionary<Storage.Resource, int> storage = new Dictionary<Storage.Resource, int>();
 
+    [SerializeField] GameObject highlight;
+
+
     public override void InputResource(Storage.Resource resource)
     {
         if (!storage.ContainsKey(resource))
@@ -87,5 +90,17 @@ public class BuildingObject : GridObject
         }
 
         return true;
+    }
+
+    private void OnMouseEnter()
+    {
+        highlight.SetActive(true);
+
+    }
+
+    private void OnMouseExit()
+    {
+        highlight.SetActive(false);
+
     }
 }

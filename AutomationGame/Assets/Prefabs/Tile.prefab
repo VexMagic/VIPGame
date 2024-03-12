@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3473587041577926497}
   - component: {fileID: 4275141573483878167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: clickedHighlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1372023301
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.051833343, g: 0.8584906, b: 0.6251779, a: 1}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 646682865367236707}
   - component: {fileID: 8905066753540468060}
   - component: {fileID: 7731416998296036478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1372023301
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -193,6 +193,8 @@ MonoBehaviour:
   clickedHighlight: {fileID: 1693420108702266178}
   pos: {x: 15, y: 8}
   worldPos: {fileID: 0}
+  gridObject: {fileID: 0}
+  tileType: 0
 --- !u!61 &7731416998296036478
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -229,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3712943353739617263}
   - component: {fileID: 4578152982032751606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +291,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1372023301
+  m_SortingLayerID: -1652054025
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}

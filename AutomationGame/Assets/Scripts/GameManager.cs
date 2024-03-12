@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GridManager grid;
 
     [SerializeField] CustomCursor customCursor;
+    [SerializeField] GameObject outPut;
+
+    Tile tile;
+    int test = 1 << 6;
 
     void Start()
     {
@@ -24,17 +28,19 @@ public class GameManager : MonoBehaviour
         goldDisplay.text = "Gold: " + gold.ToString();
 
         BuildCheck();
+        DestroyBuilding();
     }
 
     private void BuildCheck()
     {
+
         if (Input.GetMouseButtonDown(0) && buildingToPlace != null)
         {
+
             #region get Tile
 
-            Tile tile = null;
-
-            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero);
+            tile = null;
+            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero,3f,test);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.GetComponent<Tile>() != null)
@@ -68,10 +74,11 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+
             #endregion
         }
 
-        if (Input.GetMouseButtonDown(1)) //cancel
+        if (Input.GetMouseButtonDown(1)) //cancel 
         {
             buildingToPlace = null;
             customCursor.gameObject.SetActive(false);
@@ -98,10 +105,66 @@ public class GameManager : MonoBehaviour
     public void GetBuilding(GridObject building)
     {
         customCursor.gameObject.SetActive(true);
+        outPut.SetActive(true);
         customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
         customCursor.GetComponent<SpriteRenderer>().color = building.GetComponent<SpriteRenderer>().color;
+        customCursor.destroyMode = false;
         Cursor.visible = false;
         buildingToPlace = building;
+    }
+
+    public void GetHammer(Image hammer)
+    {
+        customCursor.gameObject.SetActive(true);
+        outPut.SetActive(false);
+
+        customCursor.GetComponent<SpriteRenderer>().sprite = hammer.sprite;
+        customCursor.GetComponent<SpriteRenderer>().color = hammer.color;
+        customCursor.destroyMode = true;
+        Cursor.visible = false;
+        buildingToPlace = null;
+
+
+    }
+
+    public void DestroyBuilding()
+    {
+        if (Input.GetMouseButtonDown(0) && customCursor.destroyMode) //cancel (building destroy prototype, it is working, but should not be on right click)
+        {
+            #region get Tile
+
+            tile = null;
+
+            RaycastHit2D[] hit = Physics2D.RaycastAll(customCursor.mousePos, Vector2.zero);
+
+            /*for (int i = 0; i < hit.Length; i++) //for debug
+            {
+                Debug.Log(hit[i].collider.gameObject);
+
+            }*/
+
+            if (hit.Length < 2)
+                return;
+            if (hit[1].collider != null)
+            {
+                if (hit[1].collider.gameObject.GetComponent<Tile>() != null)
+                {
+                    Vector2Int tilePos = hit[1].collider.gameObject.GetComponent<Tile>().pos;
+                    tile = grid.GetTileAtPos(tilePos);
+                }
+            }
+
+            if (tile.isOccupied)
+            {
+               Destroy(hit[0].collider.gameObject);
+            }
+            tile.isOccupied = false;
+            tile.gridObject = null;
+
+            #endregion
+
+
+        }
     }
 
 }

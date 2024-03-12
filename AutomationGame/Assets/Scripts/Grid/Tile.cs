@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private Color baseColor, altColor,occupiedColor;
     [SerializeField] public SpriteRenderer _renderer;
-    [SerializeField] private GameObject highlight;
+    [SerializeField] public GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
 
     public Vector2Int pos;
@@ -64,7 +64,7 @@ public class Tile : MonoBehaviour
 
     }
 
-    public void SetActive(bool active)
+    public void SetActive(bool active) // unlocking land
     {
         gameObject.SetActive(active);
     }

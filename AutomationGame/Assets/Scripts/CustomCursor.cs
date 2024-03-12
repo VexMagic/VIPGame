@@ -7,22 +7,32 @@ public class CustomCursor : MonoBehaviour
     public Vector2 mousePos;
     public GridObject.Direction direction;
     public GameObject directionArrow;
-
+    [SerializeField] Vector2 iconOffset = new Vector2(0.75f, 0.3f);
+    public bool destroyMode;
     private void Start()
     {
-        SetRotation();
+        if (directionArrow != null)
+            SetRotation();
     }
 
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
 
+        if (destroyMode)
+        {
+            transform.position = mousePos + iconOffset;
+
+            return;
+        }
+
+        transform.position = mousePos;
         if (Input.GetKeyDown(KeyCode.R))
         {
             ChangeDirection();
             SetRotation();
         }
+
     }
 
     private void ChangeDirection()
@@ -67,6 +77,7 @@ public class CustomCursor : MonoBehaviour
             case GridObject.Direction.Right:
                 value = 90f;
                 break;
+
         }
 
         return value;
