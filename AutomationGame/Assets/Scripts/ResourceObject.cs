@@ -15,6 +15,9 @@ public class ResourceObject : MonoBehaviour
     private Vector2Int startingPos;
     private bool reachedMiddle;
 
+    public Tile onTile;
+
+
     public void SetValues(Vector2Int pos, Storage.Resource resource)
     {
         this.resource = resource;
@@ -29,12 +32,20 @@ public class ResourceObject : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if (!currentTile.isOccupied) //destroy resource if path is also destroyed
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void ChangeDirection()
     {
         if (!currentTile.isOccupied) //check if there is something in the output direction
         {
             direction = Vector2Int.zero;
+
         }
         else
         {
@@ -111,7 +122,9 @@ public class ResourceObject : MonoBehaviour
         {
             reachedMiddle = true;
             currentTile = GridManager.Instance.GetTileAtPos(tempPos);
+            onTile = currentTile;
         }
+
     }
 
     private bool Hit()
@@ -142,4 +155,18 @@ public class ResourceObject : MonoBehaviour
     {
         return ((p1 <= m) && (m <= p2)) || ((p2 <= m) && (m <= p1));
     }
+
+    private void OnMouseEnter()
+    {
+        currentTile.highlight.SetActive(true);
+
+    }
+
+    private void OnMouseExit()
+    {
+        currentTile.highlight.SetActive(false);
+
+    }
+
+
 }

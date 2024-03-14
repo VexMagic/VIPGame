@@ -367,6 +367,9 @@ MonoBehaviour:
   grid: {fileID: 1219304738}
   customCursor: {fileID: 1934885458}
   outPut: {fileID: 1421644584}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 65
 --- !u!4 &147576170
 Transform:
   m_ObjectHideFlags: 0
@@ -707,7 +710,7 @@ GameObject:
   - component: {fileID: 1006407692}
   - component: {fileID: 1006407691}
   - component: {fileID: 1006407690}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Destroy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1421644586}
   - component: {fileID: 1421644585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Output
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1459,7 +1462,7 @@ GameObject:
   - component: {fileID: 1934885457}
   - component: {fileID: 1934885456}
   - component: {fileID: 1934885458}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Custom Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

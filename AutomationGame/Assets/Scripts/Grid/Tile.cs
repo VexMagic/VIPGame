@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 {
     public bool isOccupied;
 
-    [SerializeField] private Color baseColor, altColor,occupiedColor;
+    [SerializeField] private Color baseColor, altColor;
     [SerializeField] public SpriteRenderer _renderer;
     [SerializeField] public GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
@@ -22,17 +22,13 @@ public class Tile : MonoBehaviour
 
     public TileType tileType = TileType.None;
 
+    public List<GameObject> objectsOnTile;
+
     private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
-    }
+        objectsOnTile = new List<GameObject>();
 
-    private void Update()
-    {
-        if (isOccupied)
-        {
-            _renderer.color = occupiedColor;
-        }
     }
 
     public void Init(bool altColorTile)
@@ -61,6 +57,8 @@ public class Tile : MonoBehaviour
     {
         clickedHighlight.SetActive(true);
         worldPos = transform;
+        Debug.Log(worldPos);
+
 
     }
 
@@ -68,4 +66,24 @@ public class Tile : MonoBehaviour
     {
         gameObject.SetActive(active);
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Resource"))
+        {
+            objectsOnTile.Add(collision.gameObject);
+            Debug.Log("added from tile");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Resource"))
+        {
+            objectsOnTile.Remove(collision.gameObject);
+            Debug.Log("removed from tile");
+        }
+    }
+
 }

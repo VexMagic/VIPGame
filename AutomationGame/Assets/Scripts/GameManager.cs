@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     Tile tile;
     int test = 1 << 6;
 
+    public LayerMask layerMask;
     void Start()
     {
     }
@@ -34,13 +35,13 @@ public class GameManager : MonoBehaviour
     private void BuildCheck()
     {
 
-        if (Input.GetMouseButtonDown(0) && buildingToPlace != null)
+        if (Input.GetMouseButtonDown(0) && buildingToPlace != null && !customCursor.destroyMode)
         {
 
             #region get Tile
 
             tile = null;
-            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero,3f,test);
+            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero, 3f, test);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.GetComponent<Tile>() != null)
@@ -82,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             buildingToPlace = null;
             customCursor.gameObject.SetActive(false);
+            customCursor.destroyMode = false;
             Cursor.visible = true;
         }
     }
@@ -90,14 +92,18 @@ public class GameManager : MonoBehaviour
         if (buildingToPlace.name == buildingName)
         {
             GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
-            gold -= buildingToPlace.cost;
-            //buildingToPlace = null;
+            gold -= buildingToPlace.cost;         
             tile.isOccupied = true;
             tile.gridObject = buildingObject;
             buildingObject.pos = tile.pos;
             buildingObject.output = customCursor.direction;
-            customCursor.gameObject.SetActive(false);
-            Cursor.visible = true;
+            if (!buildingName.Equals("Path"))
+            {
+                buildingToPlace = null;
+                customCursor.gameObject.SetActive(false);
+                Cursor.visible = true;
+            }
+
         }
     }
 
@@ -129,37 +135,53 @@ public class GameManager : MonoBehaviour
 
     public void DestroyBuilding()
     {
+
         if (Input.GetMouseButtonDown(0) && customCursor.destroyMode) //cancel (building destroy prototype, it is working, but should not be on right click)
         {
             #region get Tile
 
             tile = null;
+            RaycastHit2D[] hit = Physics2D.RaycastAll(customCursor.mousePos, Vector2.zero, Mathf.Infinity, layerMask);
 
-            RaycastHit2D[] hit = Physics2D.RaycastAll(customCursor.mousePos, Vector2.zero);
+            //for (int i = 0; i < hit.Length; i++) //for debug
+            //{
+            //    Debug.Log("count:" + hit[i].collider.gameObject.name);
 
-            /*for (int i = 0; i < hit.Length; i++) //for debug
-            {
-                Debug.Log(hit[i].collider.gameObject);
-
-            }*/
+            //}
 
             if (hit.Length < 2)
                 return;
-            if (hit[1].collider != null)
+            for (int i = 0; i < hit.Length; i++)
             {
-                if (hit[1].collider.gameObject.GetComponent<Tile>() != null)
+                if (hit[i].collider.gameObject.GetComponent<Tile>() != null) //uses a loop instead of specific location to ensure that it will always find the correct game object
                 {
-                    Vector2Int tilePos = hit[1].collider.gameObject.GetComponent<Tile>().pos;
+                    Vector2Int tilePos = hit[i].collider.gameObject.GetComponent<Tile>().pos;
                     tile = grid.GetTileAtPos(tilePos);
+                    break;
                 }
             }
 
+
             if (tile.isOccupied)
             {
-               Destroy(hit[0].collider.gameObject);
+                /* for (int i = tile.objectsOnTile.Count -1; i >= 0; i--) //destroy resource if path is also destroyed, idky i tried this approach when the one in resourceOb already worked
+                 {
+                     Destroy(tile.objectsOnTile[i]);
+
+                 }*/
+                for (int i = 0; i < hit.Length; i++)
+                {
+                    if (hit[i].collider.gameObject.GetComponent<Tile>() == null)
+                    {
+                        Destroy(hit[i].collider.gameObject);
+                        break;
+                    }
+                }
             }
+
             tile.isOccupied = false;
             tile.gridObject = null;
+
 
             #endregion
 

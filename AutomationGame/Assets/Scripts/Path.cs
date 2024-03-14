@@ -7,6 +7,7 @@ public class Path : GridObject
     //[SerializeField] Storage.Resource currentResource;
     //[SerializeField] bool hasResource;
     [SerializeField] GameObject highlight;
+
     public override void UpdateObject()
     {
         base.UpdateObject();
@@ -15,7 +16,6 @@ public class Path : GridObject
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
-
     }
 
     private void OnMouseExit()
@@ -23,6 +23,7 @@ public class Path : GridObject
         highlight.SetActive(false);
 
     }
+
     //public override void InputResource(Storage.Resource resource)
     //{
     //    currentResource = resource;
