@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a250fcf8fcc40443aeecf14640be325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 999999
+  gold: 99999
   goldDisplay: {fileID: 1751274912}
   grid: {fileID: 1219304738}
   customCursor: {fileID: 1934885458}
