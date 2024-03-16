@@ -28,7 +28,7 @@ public class GridObject : MonoBehaviour
 
     public virtual void EndDay() { }
 
-    protected void OutputResource(Storage.Resource resource)
+    protected bool OutputResource(Storage.Resource resource)
     {
         GridObject gridObject = GetObjectInDirection(output, pos);
         if (gridObject != null)
@@ -36,12 +36,15 @@ public class GridObject : MonoBehaviour
             if (gridObject is BuildingObject)
             {
                 gridObject.InputResource(resource);
+                return true;
             }
             else
             {
                 Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>().SetValues(pos, resource);
+                return true;
             }
         }
+        return false;
     }
 
     public float DirectionToFloat(Direction direction)

@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
         worldPos = transform;
         Debug.Log(worldPos);
 
-
+        BuildingDisplay.Instance.CloseDisplay();
     }
 
     public void SetActive(bool active) // unlocking land
