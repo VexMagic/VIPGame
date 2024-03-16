@@ -15,7 +15,7 @@ MonoBehaviour:
   Input:
   - Amount: 2
     Resource: 1
-  Days: 2
+  Days: 8
   Output:
   - Amount: 1
     Resource: 2

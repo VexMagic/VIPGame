@@ -57,9 +57,23 @@ public class Tile : MonoBehaviour
     {
         clickedHighlight.SetActive(true);
         worldPos = transform;
+<<<<<<< Updated upstream
         Debug.Log(worldPos);
 
 
+=======
+        if (isOccupied)
+        {
+            if (gridObject is BuildingObject)
+            {
+                BuildingDisplay.instance.SelectBuilding(gridObject as BuildingObject);
+            }
+            else
+                BuildingDisplay.instance.EndSelect();
+        }
+        else
+            BuildingDisplay.instance.EndSelect();
+>>>>>>> Stashed changes
     }
 
     public void SetActive(bool active) // unlocking land

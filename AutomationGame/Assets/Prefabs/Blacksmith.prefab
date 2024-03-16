@@ -189,8 +189,8 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   outputArrow: {fileID: 5636076150023454591}
   buildingType: {fileID: 11400000, guid: d7d48cfab005c7948827096c6f7e79b9, type: 2}
-  workers: 1
-  workerLimit: 1
+  workers: 0
+  workerLimit: 2
   daysWorked: 0
   isWorking: 0
   amountWorking: 0
