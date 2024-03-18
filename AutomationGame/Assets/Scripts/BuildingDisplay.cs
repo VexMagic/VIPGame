@@ -15,6 +15,7 @@ public class BuildingDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI amountDisplay;
     [SerializeField] private TextMeshProUGUI inputAmount;
     [SerializeField] private TextMeshProUGUI outputAmount;
+    [SerializeField] private GameObject noWorkers;
     [SerializeField] private Slider progress;
 
     private void Awake()
@@ -68,6 +69,8 @@ public class BuildingDisplay : MonoBehaviour
     {
         if (selectedBuilding == null)
             return;
+
+        noWorkers.SetActive(selectedBuilding.workers == 0);
 
         buildingName.text = selectedBuilding.buildingType.name;
         amountDisplay.text = selectedBuilding.workers + "/" + selectedBuilding.workerLimit;

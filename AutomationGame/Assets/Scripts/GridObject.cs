@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class GridObject : MonoBehaviour
 {
-    public enum Direction { Up, Down, Left, Right }
+    public enum Direction { Up, Right, Down, Left }
 
     public int cost;
     public Direction output;
@@ -17,9 +18,17 @@ public class GridObject : MonoBehaviour
         DayManager.instance.AddBuilding(this);
     }
 
-    public void SetRotation()
+    public virtual void SetRotation()
     {
         outputArrow.transform.eulerAngles = new Vector3(0, 0, DirectionToFloat(output));
+
+        GridObject gridObject = GetObjectInDirection(output, pos);
+        if (gridObject is Path)
+        {
+            Direction newInput = (Direction)(((int)output + 2) % 4);
+            (gridObject as Path).input = newInput;
+            (gridObject as Path).inputArrow.transform.eulerAngles = new Vector3(0, 0, DirectionToFloat(newInput));
+        }
     }
 
     public virtual void UpdateObject() { }
@@ -38,10 +47,15 @@ public class GridObject : MonoBehaviour
                 gridObject.InputResource(resource);
                 return true;
             }
-            else
+            else if (gridObject is Path)
             {
-                Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>().SetValues(pos, resource);
-                return true;
+                //Debug.Log((int)output + "->" + ((int)(gridObject as Path).input + 2) % 4);
+
+                if (((int)(gridObject as Path).input + 2) % 4 == (int)output)
+                {
+                    Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>().SetValues(pos, resource);
+                    return true;
+                }
             }
         }
         return false;
@@ -70,7 +84,7 @@ public class GridObject : MonoBehaviour
         return value;
     }
 
-    public Vector2Int DirectioinToGrid(Direction direction)
+    public Vector2Int DirectionToGrid(Direction direction)
     {
         Vector2Int offset = Vector2Int.zero;
 
@@ -95,7 +109,7 @@ public class GridObject : MonoBehaviour
 
     public GridObject GetObjectInDirection(Direction direction, Vector2Int pos)
     {
-        Tile tile = GridManager.Instance.GetTileAtPos(pos + DirectioinToGrid(direction));
+        Tile tile = GridManager.Instance.GetTileAtPos(pos + DirectionToGrid(direction));
         if (!tile.isOccupied)
             return null;
 

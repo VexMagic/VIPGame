@@ -12,12 +12,19 @@ public class BuildingObject : GridObject
     public int daysWorked;
     [SerializeField] private bool isWorking;
     [SerializeField] private int amountWorking;
+    [SerializeField] private GameObject needWorkerWarning;
 
     public Dictionary<Storage.Resource, int> storage = new Dictionary<Storage.Resource, int>();
 
     public List<Storage.Resource> outputStorage = new List<Storage.Resource>();
 
     [SerializeField] GameObject highlight;
+
+    protected override void Start()
+    {
+        base.Start();
+        needWorkerWarning.SetActive(false);
+    }
 
     public override void InputResource(Storage.Resource resource)
     {
@@ -62,6 +69,7 @@ public class BuildingObject : GridObject
             amountWorking = workers;
         }
 
+        needWorkerWarning.SetActive(workers == 0);
     }
 
     //public override void EndDay()
