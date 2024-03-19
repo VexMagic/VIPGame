@@ -27,17 +27,40 @@ public class CustomCursor : MonoBehaviour
         }
 
         transform.position = mousePos;
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ChangeDirection();
-            SetRotation();
-        }
+        /**if (Input.GetKeyDown(KeyCode.R))
+        {*/
+        ChangeDirection();
+        //}
 
     }
 
     private void ChangeDirection()
     {
-        switch (direction)
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            direction = GridObject.Direction.Up;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            direction = GridObject.Direction.Right;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            direction = GridObject.Direction.Down;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            direction = GridObject.Direction.Left;
+            SetRotation();
+
+        }
+        /*switch (direction)
         {
             case GridObject.Direction.Up:
                 direction = GridObject.Direction.Right;
@@ -51,7 +74,7 @@ public class CustomCursor : MonoBehaviour
             case GridObject.Direction.Right:
                 direction = GridObject.Direction.Down;
                 break;
-        }
+        }*/
     }
 
     private void SetRotation()
