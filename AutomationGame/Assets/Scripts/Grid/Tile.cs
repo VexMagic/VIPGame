@@ -9,6 +9,7 @@ public enum TileType
 
 public class Tile : MonoBehaviour
 {
+    public string id;
     public bool isOccupied;
 
     [SerializeField] private Color baseColor, altColor;
@@ -28,7 +29,7 @@ public class Tile : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
         objectsOnTile = new List<GameObject>();
-
+        id = "ID:" + pos.x + "" + pos.y;
     }
 
     public void Init(bool altColorTile)
@@ -60,6 +61,7 @@ public class Tile : MonoBehaviour
         Debug.Log(worldPos);
 
         BuildingDisplay.Instance.CloseDisplay();
+        TownhallDisplay.Instance.CloseDisplay();
     }
 
     public void SetActive(bool active) // unlocking land
@@ -68,12 +70,22 @@ public class Tile : MonoBehaviour
     }
 
 
+    /*private void OnTriggerEnter2D(Collision2D collision)
+    {
+      
+    }*/
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Resource"))
         {
             objectsOnTile.Add(collision.gameObject);
             Debug.Log("added from tile");
+        }
+
+        if (collision.CompareTag("Townhall"))
+        {
+            isOccupied = true;
         }
     }
 

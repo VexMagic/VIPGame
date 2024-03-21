@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     public int gold;
     public TextMeshProUGUI goldDisplay;
 
@@ -15,18 +17,33 @@ public class GameManager : MonoBehaviour
     [SerializeField] CustomCursor customCursor;
     [SerializeField] GameObject outPut;
 
+    [SerializeField] GameObject building2Unlock;
+
+
     Tile tile;
-    int test = 1 << 6;
 
     public LayerMask layerMask;
-    void Start()
-    {
-    }
 
+    private void Start()
+    {
+        building2Unlock.SetActive(false);
+    }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         goldDisplay.text = "Gold: " + gold.ToString();
+
+        if(Townhall.Instance.level > 2) //prototype
+        {
+            building2Unlock.SetActive(true);
+        }
 
         BuildCheck();
         DestroyBuilding();
@@ -41,7 +58,7 @@ public class GameManager : MonoBehaviour
             #region get Tile
 
             tile = null;
-            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero, 3f, test);
+            RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.GetComponent<Tile>() != null)

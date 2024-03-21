@@ -29,9 +29,11 @@ public class BuildingDisplay : MonoBehaviour
     public void SelectBuilding(BuildingObject buildingObject)
     {
         animator.SetBool("IsOpen", true);
+        TownhallDisplay.Instance.CloseDisplay();
         selectedBuilding = buildingObject;
         UpdateDisplay();
     }
+
 
     public void CloseDisplay()
     {
@@ -82,4 +84,5 @@ public class BuildingDisplay : MonoBehaviour
 
         WorkerManager.Instance.UpdateDisplay();
     }
+    
 }
