@@ -84,6 +84,18 @@ public class ResourceObject : MonoBehaviour
                 if (!acceptsResource)
                     direction = Vector2Int.zero;
             }
+            else 
+            {
+                GridObject outputObject = GridManager.Instance.GetTileAtPos(currentTile.pos + direction).gridObject;
+
+                if (outputObject is Path)
+                {
+                    if (((int)(outputObject as Path).input +2) % 4 != (int)currentTile.gridObject.output)
+                    {
+                        direction = Vector2Int.zero;
+                    }
+                }
+            }
         }
     }
 

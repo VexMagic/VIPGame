@@ -7,6 +7,34 @@ public class Path : GridObject
     //[SerializeField] Storage.Resource currentResource;
     //[SerializeField] bool hasResource;
     [SerializeField] GameObject highlight;
+    public Direction input;
+    public GameObject inputArrow;
+
+    public override void SetRotation()
+    {
+        base.SetRotation();
+
+        for (int i = 0; i < 4; i++) 
+        {
+            Tile tile = GridManager.Instance.GetTileAtPos(pos + DirectionToGrid((Direction)i));
+            if (tile.isOccupied)
+            {
+                if (tile.gridObject.pos + DirectionToGrid(tile.gridObject.output) == pos)
+                {
+                    input = (Direction)i;
+                    break;
+                }
+            }
+
+            //Debug.Log((Direction)((i + 2) % 4) + "-" + (Direction)i);
+            if (i == 3)
+            {
+                input = (Direction)(((int)output + 2) % 4);
+            }
+        }
+
+        inputArrow.transform.eulerAngles = new Vector3(0, 0, DirectionToFloat(input));
+    }
 
     public override void UpdateObject()
     {

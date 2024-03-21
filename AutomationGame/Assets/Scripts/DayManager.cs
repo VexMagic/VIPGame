@@ -39,6 +39,7 @@ public class DayManager : MonoBehaviour
             {
                 item.EndDay();
             }
+            BuildingDisplay.Instance.UpdateDisplay();
         }
     }
 
