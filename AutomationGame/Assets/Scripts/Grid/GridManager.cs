@@ -23,6 +23,9 @@ public class GridManager : MonoBehaviour
     Tile spawnedTile;
 
     public GameObject townhall;
+    public GameObject dungeon;
+
+    Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
 
     private void Awake()
     {
@@ -43,8 +46,30 @@ public class GridManager : MonoBehaviour
         {
             foreach (Tile _tile in tiles.Values)
             {
-                _tile.SetActive(true);
+                _tile.SetActive(true); 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Vector2Int minRange = new Vector2Int(8, 11);
+            Vector2Int maxRange = new Vector2Int(0, 9);
+
+            Tile tileDung = GetTileAtPos(new Vector2Int(Random.Range(minRange.x, minRange.y), Random.Range(maxRange.x, maxRange.y)));
+            while (tileDung.tileType == TileType.Dungeon)
+            {
+                tileDung = GetTileAtPos(new Vector2Int(Random.Range(minRange.x, minRange.y), Random.Range(maxRange.x, maxRange.y)));
+            }
+            if (tileDung.tileType == TileType.None)
+            {
+                GameObject dungeonObject = Instantiate(dungeon, tileDung.transform.position, Quaternion.identity);
+                dungeonObject.name = "Dungeon";
+                tileDung.tileType = TileType.Dungeon;
+
+            }
+
+            //spawnedTile._renderer.color = Color.red;
+
         }
 
     }
@@ -80,7 +105,7 @@ public class GridManager : MonoBehaviour
 
                 if (spawnedTile.pos == new Vector2(5, 2))
                 {
-                    GameObject townhallObject = Instantiate(townhall, spawnedTile.transform.position + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+                    GameObject townhallObject = Instantiate(townhall, spawnedTile.transform.position + offset3, Quaternion.identity);
                     townhallObject.name = "Townhall";
                 }
             }

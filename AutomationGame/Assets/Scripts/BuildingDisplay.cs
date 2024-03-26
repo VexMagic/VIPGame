@@ -30,6 +30,7 @@ public class BuildingDisplay : MonoBehaviour
     {
         animator.SetBool("IsOpen", true);
         TownhallDisplay.Instance.CloseDisplay();
+        DungeonDisplay.Instance.CloseDisplay();
         selectedBuilding = buildingObject;
         UpdateDisplay();
     }

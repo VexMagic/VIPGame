@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum TileType
 {
-    None,Forest, OreDeposit
+    None,Forest, OreDeposit, Dungeon
 }
 
 public class Tile : MonoBehaviour
@@ -60,8 +60,14 @@ public class Tile : MonoBehaviour
         worldPos = transform;
         Debug.Log(worldPos);
 
+        CloseAllDisplays();
+    }
+
+    private void CloseAllDisplays()
+    {
         BuildingDisplay.Instance.CloseDisplay();
         TownhallDisplay.Instance.CloseDisplay();
+        DungeonDisplay.Instance.CloseDisplay();
     }
 
     public void SetActive(bool active) // unlocking land

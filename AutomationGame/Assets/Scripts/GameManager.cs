@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
             building2Unlock.SetActive(true);
         }
 
+
+
         BuildCheck();
         DestroyBuilding();
     }
