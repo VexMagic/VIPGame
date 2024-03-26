@@ -17,3 +17,5 @@ MonoBehaviour:
   Output:
   - Amount: 1
     Resource: 1
+  - Amount: 1
+    Resource: 0
