@@ -77,22 +77,26 @@ public class GameManager : MonoBehaviour
                 return;
             if (!tile.isOccupied && gold >= buildingToPlace.cost)
             {
-                switch (tile.tileType)
+                if (buildingToPlace.tileType == tile.tileType)
                 {
-                    case TileType.None:
-                        Build("Path", tile);
-
-                        break;
-                    case TileType.Forest:
-                        Build("Blacksmith", tile);//placeholder
-
-                        break;
-                    case TileType.OreDeposit:
-                        Build("Mine", tile);
-                        break;
-                    default:
-                        break;
+                    Build(tile);
                 }
+
+                //switch (tile.tileType)
+                //{
+                //    case TileType.None:
+                //        Build("Path", tile);
+                //        break;
+                //    case TileType.Forest:
+                //        Build("Blacksmith", tile);//placeholder
+
+                //        break;
+                //    case TileType.OreDeposit:
+                //        Build("Mine", tile);
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
 
             #endregion
@@ -106,9 +110,9 @@ public class GameManager : MonoBehaviour
             Cursor.visible = true;
         }
     }
-    public void Build(string buildingName, Tile tile)
+    public void Build(Tile tile)
     {
-        if (buildingToPlace.name == buildingName)
+        //if (buildingToPlace.name == buildingName)
         {
             GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
             gold -= buildingToPlace.cost;         
@@ -116,7 +120,7 @@ public class GameManager : MonoBehaviour
             tile.gridObject = buildingObject;
             buildingObject.pos = tile.pos;
             buildingObject.output = customCursor.direction;
-            if (!buildingName.Equals("Path"))
+            if (!(buildingToPlace is Path))
             {
                 buildingToPlace = null;
                 customCursor.gameObject.SetActive(false);

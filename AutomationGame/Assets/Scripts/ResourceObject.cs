@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ResourceObject : MonoBehaviour
@@ -18,7 +19,7 @@ public class ResourceObject : MonoBehaviour
     public Tile onTile;
 
 
-    public void SetValues(Vector2Int pos, Storage.Resource resource)
+    public bool SetValues(Vector2Int pos, Storage.Resource resource)
     {
         this.resource = resource;
 
@@ -30,7 +31,9 @@ public class ResourceObject : MonoBehaviour
         if (Hit())
         {
             Destroy(gameObject);
+            return false;
         }
+        return true;
     }
     private void Update()
     {
@@ -52,21 +55,14 @@ public class ResourceObject : MonoBehaviour
             //set movement direction
             transform.position = new Vector3(currentTile.pos.x, currentTile.pos.y);
 
-            switch (currentTile.gridObject.output)
+            GridObject.Direction output = currentTile.gridObject.output;
+
+            if (currentTile.gridObject is Filter)
             {
-                case GridObject.Direction.Up:
-                    direction = Vector2Int.up;
-                    break;
-                case GridObject.Direction.Down:
-                    direction = Vector2Int.down;
-                    break;
-                case GridObject.Direction.Left:
-                    direction = Vector2Int.left;
-                    break;
-                case GridObject.Direction.Right:
-                    direction = Vector2Int.right;
-                    break;
+                output = (currentTile.gridObject as Filter).GetOutputDirection(resource);
             }
+
+            direction = DirectionToVector(output);
 
             if (!GridManager.Instance.GetTileAtPos(currentTile.pos + direction).isOccupied)
             {
@@ -84,19 +80,45 @@ public class ResourceObject : MonoBehaviour
                 if (!acceptsResource)
                     direction = Vector2Int.zero;
             }
+            else if (GridManager.Instance.GetTileAtPos(currentTile.pos + direction).gridObject is Filter)
+            {
+                Filter filterObject = GridManager.Instance.GetTileAtPos(currentTile.pos + direction).gridObject as Filter;
+
+                if (output != filterObject.output)
+                {
+                    direction = Vector2Int.zero;
+                }
+            }
             else 
             {
                 GridObject outputObject = GridManager.Instance.GetTileAtPos(currentTile.pos + direction).gridObject;
 
                 if (outputObject is Path)
                 {
-                    if (((int)(outputObject as Path).input +2) % 4 != (int)currentTile.gridObject.output)
+                    if (((int)(outputObject as Path).input +2) % 4 != (int)output)
                     {
                         direction = Vector2Int.zero;
                     }
                 }
             }
         }
+    }
+
+    private Vector2Int DirectionToVector(GridObject.Direction direction)
+    {
+        switch (direction)
+        {
+            case GridObject.Direction.Up:
+                return Vector2Int.up;
+            case GridObject.Direction.Down:
+                return Vector2Int.down;
+            case GridObject.Direction.Left:
+                return Vector2Int.left;
+            case GridObject.Direction.Right:
+                return Vector2Int.right;
+        }
+
+        return Vector2Int.zero;
     }
 
     private void FixedUpdate()
@@ -126,6 +148,7 @@ public class ResourceObject : MonoBehaviour
             //change direction to match the paths direction
             reachedMiddle = false;
             ChangeDirection();
+            Debug.Log(direction);
         }
 
         //get current tile

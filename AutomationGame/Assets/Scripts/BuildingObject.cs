@@ -18,8 +18,6 @@ public class BuildingObject : GridObject
 
     public List<Storage.Resource> outputStorage = new List<Storage.Resource>();
 
-    [SerializeField] GameObject highlight;
-
     protected override void Start()
     {
         base.Start();
@@ -36,7 +34,9 @@ public class BuildingObject : GridObject
 
     public override void EndDay()
     {
-        daysWorked += amountWorking;
+        if (outputStorage.Count == 0)
+            daysWorked += amountWorking;
+
         if (daysWorked >= buildingType.days)
         {
             foreach (InputOutput item in buildingType.input)
@@ -56,7 +56,7 @@ public class BuildingObject : GridObject
 
         if (outputStorage.Count > 0)
         {
-            if (OutputResource(outputStorage[0]))
+            if (OutputResource(outputStorage[0], output))
                 outputStorage.RemoveAt(0);
         }
 

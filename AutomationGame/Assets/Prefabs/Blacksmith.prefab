@@ -273,6 +273,8 @@ MonoBehaviour:
   output: 3
   pos: {x: 0, y: 0}
   outputArrow: {fileID: 5636076150023454591}
+  highlight: {fileID: 9149264431611698617}
+  tileType: 1
   buildingType: {fileID: 11400000, guid: d7d48cfab005c7948827096c6f7e79b9, type: 2}
   workers: 0
   workerLimit: 5
@@ -281,7 +283,6 @@ MonoBehaviour:
   amountWorking: 0
   needWorkerWarning: {fileID: 7033290454324220426}
   outputStorage: 
-  highlight: {fileID: 9149264431611698617}
 --- !u!61 &697352873797692552
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -11,7 +11,9 @@ public class GridObject : MonoBehaviour
     public Direction output;
     public Vector2Int pos;
     [SerializeField] protected GameObject outputArrow;
-    
+    [SerializeField] protected GameObject highlight;
+    public TileType tileType;
+
     protected virtual void Start()
     {
         SetRotation();
@@ -37,9 +39,9 @@ public class GridObject : MonoBehaviour
 
     public virtual void EndDay() { }
 
-    protected bool OutputResource(Storage.Resource resource)
+    protected bool OutputResource(Storage.Resource resource, Direction direction)
     {
-        GridObject gridObject = GetObjectInDirection(output, pos);
+        GridObject gridObject = GetObjectInDirection(direction, pos);
         if (gridObject != null)
         {
             if (gridObject is BuildingObject)
@@ -49,12 +51,18 @@ public class GridObject : MonoBehaviour
             }
             else if (gridObject is Path)
             {
-                //Debug.Log((int)output + "->" + ((int)(gridObject as Path).input + 2) % 4);
-
-                if (((int)(gridObject as Path).input + 2) % 4 == (int)output)
+                if (((int)(gridObject as Path).input + 2) % 4 == (int)direction)
                 {
-                    Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>().SetValues(pos, resource);
-                    return true;
+                    ResourceObject resourceObject = Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>();
+                    return resourceObject.SetValues(pos, resource);
+                }
+            }
+            else if (gridObject is Filter)
+            {
+                if (gridObject.output == direction)
+                {
+                    ResourceObject resourceObject = Instantiate(GridManager.Instance.resourceObject).GetComponent<ResourceObject>();
+                    return resourceObject.SetValues(pos, resource);
                 }
             }
         }

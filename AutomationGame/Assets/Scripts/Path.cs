@@ -6,7 +6,6 @@ public class Path : GridObject
 {
     //[SerializeField] Storage.Resource currentResource;
     //[SerializeField] bool hasResource;
-    [SerializeField] GameObject highlight;
     public Direction input;
     public GameObject inputArrow;
 
