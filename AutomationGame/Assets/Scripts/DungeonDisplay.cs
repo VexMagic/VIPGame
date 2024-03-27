@@ -30,9 +30,20 @@ public class DungeonDisplay : MonoBehaviour
 
     private void Update()
     {
-        if (dungeon == null)
+        if (dungeon != null)
+            return;
+
+        try
         {
-            dungeon = GameObject.Find("Dungeon").GetComponent<Dungeon>();
+            if (dungeon == null)
+            {
+                dungeon = GameObject.Find("Dungeon").GetComponent<Dungeon>();
+            }
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("No dungeon spawned yet");
         }
     }
 
