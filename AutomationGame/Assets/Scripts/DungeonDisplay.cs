@@ -85,11 +85,16 @@ public class DungeonDisplay : MonoBehaviour
         if(int.Parse(amountDisplay.text) > 0)
         {
             RNG = Random.Range(0, 100);
-            if (RNG <= 70) // 70%
+            if (RNG <= 60) // 60%
+            {
+                //lose nothing
+            }
+            else if (RNG > 60 && RNG <= 80) //20%
             {
                 dungeon.adv -= 1;
+
             }
-            else if (RNG > 70 && RNG <= 95) //25%
+            else if (RNG > 80 && RNG <= 95) //15%
             {
                 dungeon.adv -= 2;
 
