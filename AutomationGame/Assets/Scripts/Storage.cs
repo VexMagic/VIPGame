@@ -8,7 +8,7 @@ public class Storage : MonoBehaviour
 {
     public static Storage instance;
 
-    public enum Resource { Food, Metal, Weapon, Mana, Wood, Leather, Book }
+    public enum Resource { Food, Metal, Weapon, Mana, Wood, Leather, Book, Warrior, Mage, Cleric }
 
     private void Awake()
     {
