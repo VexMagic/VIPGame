@@ -7,27 +7,60 @@ public class CustomCursor : MonoBehaviour
     public Vector2 mousePos;
     public GridObject.Direction direction;
     public GameObject directionArrow;
-
+    [SerializeField] Vector2 iconOffset = new Vector2(0.75f, 0.3f);
+    public bool destroyMode;
     private void Start()
     {
-        SetRotation();
+        if (directionArrow != null)
+            SetRotation();
     }
 
     void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (destroyMode)
         {
-            ChangeDirection();
-            SetRotation();
+            transform.position = mousePos + iconOffset;
+
+            return;
         }
+
+        transform.position = mousePos;
+        /**if (Input.GetKeyDown(KeyCode.R))
+        {*/
+        ChangeDirection();
+        //}
+
     }
 
     private void ChangeDirection()
     {
-        switch (direction)
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            direction = GridObject.Direction.Up;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            direction = GridObject.Direction.Right;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            direction = GridObject.Direction.Down;
+            SetRotation();
+
+        }
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            direction = GridObject.Direction.Left;
+            SetRotation();
+
+        }
+        /*switch (direction)
         {
             case GridObject.Direction.Up:
                 direction = GridObject.Direction.Right;
@@ -41,7 +74,7 @@ public class CustomCursor : MonoBehaviour
             case GridObject.Direction.Right:
                 direction = GridObject.Direction.Down;
                 break;
-        }
+        }*/
     }
 
     private void SetRotation()
@@ -67,6 +100,7 @@ public class CustomCursor : MonoBehaviour
             case GridObject.Direction.Right:
                 value = 90f;
                 break;
+
         }
 
         return value;

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00d67cb44eea3143b7a5423cf06036f, type: 3}
   m_Name: Blacksmith
   m_EditorClassIdentifier: 
+  unlockedLvl: 2
   Input:
   - Amount: 2
     Resource: 1
-  Days: 2
+  Days: 20
   Output:
   - Amount: 1
     Resource: 2

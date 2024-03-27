@@ -4,16 +4,17 @@ using UnityEngine;
 
 public enum TileType
 {
-    None,Forest, OreDeposit
+    None,Forest, OreDeposit, Dungeon
 }
 
 public class Tile : MonoBehaviour
 {
+    public string id;
     public bool isOccupied;
 
-    [SerializeField] private Color baseColor, altColor,occupiedColor;
+    [SerializeField] private Color baseColor, altColor;
     [SerializeField] public SpriteRenderer _renderer;
-    [SerializeField] private GameObject highlight;
+    [SerializeField] public GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
 
     public Vector2Int pos;
@@ -22,17 +23,13 @@ public class Tile : MonoBehaviour
 
     public TileType tileType = TileType.None;
 
+    public List<GameObject> objectsOnTile;
+
     private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void Update()
-    {
-        if (isOccupied)
-        {
-            _renderer.color = occupiedColor;
-        }
+        objectsOnTile = new List<GameObject>();
+        id = "ID:" + pos.x + "" + pos.y;
     }
 
     public void Init(bool altColorTile)
@@ -61,11 +58,50 @@ public class Tile : MonoBehaviour
     {
         clickedHighlight.SetActive(true);
         worldPos = transform;
+        Debug.Log(worldPos);
 
+        CloseAllDisplays();
     }
 
-    public void SetActive(bool active)
+    private void CloseAllDisplays()
+    {
+        BuildingDisplay.Instance.CloseDisplay();
+        TownhallDisplay.Instance.CloseDisplay();
+        DungeonDisplay.Instance.CloseDisplay();
+    }
+
+    public void SetActive(bool active) // unlocking land
     {
         gameObject.SetActive(active);
     }
+
+
+    /*private void OnTriggerEnter2D(Collision2D collision)
+    {
+      
+    }*/
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Resource"))
+        {
+            objectsOnTile.Add(collision.gameObject);
+            Debug.Log("added from tile");
+        }
+
+        if (collision.CompareTag("Townhall"))
+        {
+            isOccupied = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Resource"))
+        {
+            objectsOnTile.Remove(collision.gameObject);
+            Debug.Log("removed from tile");
+        }
+    }
+
 }

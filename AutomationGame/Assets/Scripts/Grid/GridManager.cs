@@ -22,6 +22,11 @@ public class GridManager : MonoBehaviour
 
     Tile spawnedTile;
 
+    public GameObject townhall;
+    public GameObject dungeon;
+
+    Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,8 +46,30 @@ public class GridManager : MonoBehaviour
         {
             foreach (Tile _tile in tiles.Values)
             {
-                _tile.SetActive(true);
+                _tile.SetActive(true); 
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Vector2Int minRange = new Vector2Int(8, 11);
+            Vector2Int maxRange = new Vector2Int(0, 9);
+
+            Tile tileDung = GetTileAtPos(new Vector2Int(Random.Range(minRange.x, minRange.y), Random.Range(maxRange.x, maxRange.y)));
+            while (tileDung.tileType == TileType.Dungeon)
+            {
+                tileDung = GetTileAtPos(new Vector2Int(Random.Range(minRange.x, minRange.y), Random.Range(maxRange.x, maxRange.y)));
+            }
+            if (tileDung.tileType == TileType.None)
+            {
+                GameObject dungeonObject = Instantiate(dungeon, tileDung.transform.position, Quaternion.identity);
+                dungeonObject.name = "Dungeon";
+                tileDung.tileType = TileType.Dungeon;
+
+            }
+
+            //spawnedTile._renderer.color = Color.red;
+
         }
 
     }
@@ -61,29 +88,36 @@ public class GridManager : MonoBehaviour
                 spawnedTile.transform.localPosition = new Vector3(x, y);
                 tiles[spawnedTile.pos] = spawnedTile;
 
-                if (spawnedTile.pos.x > 10)
+                if (spawnedTile.pos.x > 10) //locked land
                 {
                     spawnedTile.SetActive(false);
                 }
-                if(spawnedTile.pos == new Vector2(2, 2))
+                if (spawnedTile.pos == new Vector2(2, 2)) //ore desposit
                 {
                     spawnedTile.tileType = TileType.OreDeposit;
                     spawnedTile._renderer.color = Color.yellow;
                 }
-                if (spawnedTile.pos == new Vector2(4, 5))
+                if (spawnedTile.pos == new Vector2(4, 5))//forest
                 {
                     spawnedTile.tileType = TileType.Forest;
                     spawnedTile._renderer.color = Color.green;
                 }
+
+                if (spawnedTile.pos == new Vector2(5, 2))
+                {
+                    GameObject townhallObject = Instantiate(townhall, spawnedTile.transform.position + offset3, Quaternion.identity);
+                    townhallObject.name = "Townhall";
+                }
             }
         }
 
-        cam.transform.position = new Vector3((float)width/ 2 - 0.5f + offset.x, (float)height / 2 - 0.5f + offset.y, -10); //cam center
+
+        cam.transform.position = new Vector3((float)width / 2 - 0.5f + offset.x, (float)height / 2 - 0.5f + offset.y, -10); //cam center
     }
 
     public Tile GetTileAtPos(Vector2Int pos)
     {
-        if(tiles.TryGetValue(pos,out var tile))
+        if (tiles.TryGetValue(pos, out var tile))
         {
             return tile;
         }

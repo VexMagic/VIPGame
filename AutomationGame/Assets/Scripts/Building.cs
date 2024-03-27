@@ -6,7 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Building", menuName = "Building")]
 public class Building : ScriptableObject
 {
-   
+    [SerializeField] private int unlockedLvl; // maybe
+
     [SerializeField] private List<InputOutput> Input;
     [SerializeField] private int Days;
     [SerializeField] private List<InputOutput> Output;

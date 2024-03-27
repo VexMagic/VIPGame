@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     public int gold;
     public TextMeshProUGUI goldDisplay;
 
@@ -13,27 +15,51 @@ public class GameManager : MonoBehaviour
     [SerializeField] GridManager grid;
 
     [SerializeField] CustomCursor customCursor;
+    [SerializeField] GameObject outPut;
 
-    void Start()
+    [SerializeField] GameObject building2Unlock;
+
+
+    Tile tile;
+
+    public LayerMask layerMask;
+
+    private void Start()
     {
+        building2Unlock.SetActive(false);
     }
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         goldDisplay.text = "Gold: " + gold.ToString();
 
+        if(Townhall.Instance.level > 2) //prototype
+        {
+            building2Unlock.SetActive(true);
+        }
+
+
+
         BuildCheck();
+        DestroyBuilding();
     }
 
     private void BuildCheck()
     {
-        if (Input.GetMouseButtonDown(0) && buildingToPlace != null)
+
+        if (Input.GetMouseButtonDown(0) && buildingToPlace != null && !customCursor.destroyMode)
         {
+
             #region get Tile
 
-            Tile tile = null;
-
+            tile = null;
             RaycastHit2D hit = Physics2D.Raycast(customCursor.mousePos, Vector2.zero);
             if (hit.collider != null)
             {
@@ -68,13 +94,15 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+
             #endregion
         }
 
-        if (Input.GetMouseButtonDown(1)) //cancel
+        if (Input.GetMouseButtonDown(1)) //cancel 
         {
             buildingToPlace = null;
             customCursor.gameObject.SetActive(false);
+            customCursor.destroyMode = false;
             Cursor.visible = true;
         }
     }
@@ -83,14 +111,18 @@ public class GameManager : MonoBehaviour
         if (buildingToPlace.name == buildingName)
         {
             GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
-            gold -= buildingToPlace.cost;
-            //buildingToPlace = null;
+            gold -= buildingToPlace.cost;         
             tile.isOccupied = true;
             tile.gridObject = buildingObject;
             buildingObject.pos = tile.pos;
             buildingObject.output = customCursor.direction;
-            customCursor.gameObject.SetActive(false);
-            Cursor.visible = true;
+            if (!buildingName.Equals("Path"))
+            {
+                buildingToPlace = null;
+                customCursor.gameObject.SetActive(false);
+                Cursor.visible = true;
+            }
+
         }
     }
 
@@ -98,10 +130,82 @@ public class GameManager : MonoBehaviour
     public void GetBuilding(GridObject building)
     {
         customCursor.gameObject.SetActive(true);
+        outPut.SetActive(true);
         customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
         customCursor.GetComponent<SpriteRenderer>().color = building.GetComponent<SpriteRenderer>().color;
+        customCursor.destroyMode = false;
         Cursor.visible = false;
         buildingToPlace = building;
+    }
+
+    public void GetHammer(Image hammer)
+    {
+        customCursor.gameObject.SetActive(true);
+        outPut.SetActive(false);
+
+        customCursor.GetComponent<SpriteRenderer>().sprite = hammer.sprite;
+        customCursor.GetComponent<SpriteRenderer>().color = hammer.color;
+        customCursor.destroyMode = true;
+        Cursor.visible = false;
+        buildingToPlace = null;
+
+
+    }
+
+    public void DestroyBuilding()
+    {
+
+        if (Input.GetMouseButtonDown(0) && customCursor.destroyMode) //cancel (building destroy prototype, it is working, but should not be on right click)
+        {
+            #region get Tile
+
+            tile = null;
+            RaycastHit2D[] hit = Physics2D.RaycastAll(customCursor.mousePos, Vector2.zero, Mathf.Infinity, layerMask);
+
+            //for (int i = 0; i < hit.Length; i++) //for debug
+            //{
+            //    Debug.Log("count:" + hit[i].collider.gameObject.name);
+
+            //}
+
+            if (hit.Length < 2)
+                return;
+            for (int i = 0; i < hit.Length; i++)
+            {
+                if (hit[i].collider.gameObject.GetComponent<Tile>() != null) //uses a loop instead of specific location to ensure that it will always find the correct game object
+                {
+                    Vector2Int tilePos = hit[i].collider.gameObject.GetComponent<Tile>().pos;
+                    tile = grid.GetTileAtPos(tilePos);
+                    break;
+                }
+            }
+
+
+            if (tile.isOccupied)
+            {
+                /* for (int i = tile.objectsOnTile.Count -1; i >= 0; i--) //destroy resource if path is also destroyed, idky i tried this approach when the one in resourceOb already worked
+                 {
+                     Destroy(tile.objectsOnTile[i]);
+
+                 }*/
+                for (int i = 0; i < hit.Length; i++)
+                {
+                    if (hit[i].collider.gameObject.GetComponent<Tile>() == null)
+                    {
+                        Destroy(hit[i].collider.gameObject);
+                        break;
+                    }
+                }
+            }
+
+            tile.isOccupied = false;
+            tile.gridObject = null;
+
+
+            #endregion
+
+
+        }
     }
 
 }
