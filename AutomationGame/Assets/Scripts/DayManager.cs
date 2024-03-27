@@ -12,11 +12,31 @@ public class DayManager : MonoBehaviour
 
     private List<GridObject> allBuildings = new List<GridObject>();
 
+    public Dungeon dungeon;
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+        }
+    }
+
+    private void Update()
+    {
+        if (dungeon != null)
+            return;
+
+        try
+        {
+            if (dungeon == null)
+            {
+                dungeon = GameObject.Find("Dungeon").GetComponent<Dungeon>();
+            }
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("No dungeon spawned yet");
         }
     }
     private void Start()
@@ -25,6 +45,8 @@ public class DayManager : MonoBehaviour
         {
             item.EndDay();
         }
+        if (dungeon != null)
+            dungeon.Explore();
     }
 
     private void FixedUpdate()
@@ -39,8 +61,17 @@ public class DayManager : MonoBehaviour
             {
                 item.EndDay();
             }
+            if (dungeon != null)
+            {
+                if(dungeon.adv > 0)
+                {
+                    dungeon.daysWorked++;
+                }
+                dungeon.Explore();
+            }
             BuildingDisplay.Instance.UpdateDisplay();
         }
+       
     }
 
     public void AddBuilding(GridObject buildingObject)

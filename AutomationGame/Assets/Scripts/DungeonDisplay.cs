@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonDisplay : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class DungeonDisplay : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private TextMeshProUGUI buildingName;
-    [SerializeField] private TextMeshProUGUI amountDisplay;
+    [SerializeField] private Slider progress;
+    [SerializeField] private TextMeshProUGUI advAmount;
+    [SerializeField] private TextMeshProUGUI totalGoldDisplay;
+    int totalGold;
 
-    public int RNG;
 
 
     public Dungeon dungeon;
@@ -89,47 +92,21 @@ public class DungeonDisplay : MonoBehaviour
         }
     }
 
-    public void Explore() // prototype
-    {
-        GameManager.Instance.gold += dungeon.adv * 200;
-
-        if(int.Parse(amountDisplay.text) > 0)
-        {
-            RNG = Random.Range(0, 100);
-            if (RNG <= 60) // 60%
-            {
-                //lose nothing
-            }
-            else if (RNG > 60 && RNG <= 80) //20%
-            {
-                dungeon.adv -= 1;
-
-            }
-            else if (RNG > 80 && RNG <= 95) //15%
-            {
-                dungeon.adv -= 2;
-
-            }
-            else // 5%
-                dungeon.adv -= 3;           
-        }
-        UpdateDungeonDisplay();
-
-    }
     public void UpdateDungeonDisplay()
     {
 
         if (dungeon == null)
             return;
 
+        totalGold = dungeon.adv * dungeon.gold;
+
         buildingName.text = dungeon.name;
 
-        amountDisplay.text = dungeon.adv.ToString();
+        advAmount.text = dungeon.adv.ToString();
 
-        if (int.Parse(amountDisplay.text) < 0)
-        {
-            amountDisplay.text = "0";
-        }
+        progress.value = dungeon.daysWorked;
+        progress.maxValue = dungeon.daysToYieldGold;
+        totalGoldDisplay.text = totalGold.ToString();
         /*        progress.value = selectedBuilding.daysWorked;
                 progress.maxValue = selectedBuilding.buildingType.days;*/
 
