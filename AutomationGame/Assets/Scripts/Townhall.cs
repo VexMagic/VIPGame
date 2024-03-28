@@ -11,10 +11,13 @@ public class Townhall : MonoBehaviour
 
     // Start is called before the first frame update
     [SerializeField] public GameObject highlight;
+    [SerializeField] public GameObject clickedHighlight;
+
 
     void Start()
     {
         level = 1;
+
     }
 
     private void Awake()
@@ -34,11 +37,22 @@ public class Townhall : MonoBehaviour
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
 
     }
 
+    private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
+    }
+
+
     private void OnMouseDown()
     {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
         TownhallDisplay.Instance.SelectTownhall();
     }
 }

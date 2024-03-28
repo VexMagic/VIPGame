@@ -25,8 +25,16 @@ public class GridManager : MonoBehaviour
     public GameObject townhall;
     public GameObject dungeon;
 
-    Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
+    [Header("Resource Tiles")]
+    #region resource tiles
 
+    public Sprite oreVein;
+    public Sprite forest;
+
+
+    #endregion
+
+    Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
     private void Awake()
     {
         if (Instance == null)
@@ -83,8 +91,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile = Instantiate(tile, gridList.transform);
                 spawnedTile.name = $"Tile {x} {y}";
                 spawnedTile.pos = new Vector2Int(x, y);
-                bool altColorTile = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); //color seperation
-                spawnedTile.Init(altColorTile);
+             
                 spawnedTile.transform.localPosition = new Vector3(x, y);
                 tiles[spawnedTile.pos] = spawnedTile;
 
@@ -94,13 +101,20 @@ public class GridManager : MonoBehaviour
                 }
                 if (spawnedTile.pos == new Vector2(2, 2)) //ore desposit
                 {
-                    spawnedTile.tileType = TileType.OreDeposit;
-                    spawnedTile._renderer.color = Color.yellow;
+                    /*spawnedTile.tileType = TileType.OreDeposit;
+                    spawnedTile.GetComponent<SpriteRenderer>().sprite = oreVein;
+                    spawnedTile.isResourceTile = true;
+                    spawnedTile.resourceTile.SetActive(true);*/
+                    ChangeTilePerResource(TileType.OreDeposit, oreVein);
+
                 }
                 if (spawnedTile.pos == new Vector2(4, 5))//forest
                 {
-                    spawnedTile.tileType = TileType.Forest;
-                    spawnedTile._renderer.color = Color.green;
+                    /*spawnedTile.tileType = TileType.Forest;
+                    spawnedTile.GetComponent<SpriteRenderer>().sprite = forest;
+                    spawnedTile.isResourceTile = true;*/
+                    ChangeTilePerResource(TileType.Forest, forest);
+
                 }
 
                 if (spawnedTile.pos == new Vector2(5, 2))
@@ -108,11 +122,22 @@ public class GridManager : MonoBehaviour
                     GameObject townhallObject = Instantiate(townhall, spawnedTile.transform.position + offset3, Quaternion.identity);
                     townhallObject.name = "Townhall";
                 }
+
+                bool altColorTile = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0); //color seperation
+                spawnedTile.Init(altColorTile);
             }
         }
 
 
         cam.transform.position = new Vector3((float)width / 2 - 0.5f + offset.x, (float)height / 2 - 0.5f + offset.y, -10); //cam center
+    }
+
+    private void ChangeTilePerResource(TileType type, Sprite typeSprite)
+    {
+        spawnedTile.tileType = type;
+        spawnedTile.isResourceTile = true;
+        spawnedTile.resourceTile.SetActive(true);
+        spawnedTile.resourceTile.GetComponent<SpriteRenderer>().sprite = typeSprite;
     }
 
     public Tile GetTileAtPos(Vector2Int pos)

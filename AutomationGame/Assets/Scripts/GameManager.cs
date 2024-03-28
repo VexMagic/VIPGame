@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        goldDisplay.text = "Gold: " + gold.ToString();
+        goldDisplay.text = gold.ToString();
 
         if(Townhall.Instance.level > 2) //prototype
         {

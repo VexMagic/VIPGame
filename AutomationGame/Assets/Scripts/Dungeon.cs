@@ -7,17 +7,17 @@ public class Dungeon : MonoBehaviour
     public int adv;
     public int daysWorked;
     [SerializeField] public GameObject highlight;
+    [SerializeField] private GameObject clickedHighlight;
+
     public int daysToYieldGold = 5;
     public int gold = 100;
     public int RNG;
-    public int totalGold;
     void Start()
     {
     }
 
     private void Update()
     {
-        totalGold = adv * gold;
     }
 
 
@@ -29,9 +29,23 @@ public class Dungeon : MonoBehaviour
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
 
     }
 
+    private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
+    }
+
+    private void OnMouseDown()
+    {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
+        DungeonDisplay.Instance.SelectDungeon();
+    }
     public void Explore() // prototype
     {
         if(daysWorked >= daysToYieldGold)
@@ -71,8 +85,5 @@ public class Dungeon : MonoBehaviour
 
     }
 
-    private void OnMouseDown()
-    {
-        DungeonDisplay.Instance.SelectDungeon();
-    }
+   
 }

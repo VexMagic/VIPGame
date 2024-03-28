@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum TileType
 {
-    None,Forest, OreDeposit, Dungeon
+    None, Forest, OreDeposit, Dungeon
 }
 
 public class Tile : MonoBehaviour
@@ -13,9 +13,22 @@ public class Tile : MonoBehaviour
     public bool isOccupied;
 
     [SerializeField] private Color baseColor, altColor;
-    [SerializeField] public SpriteRenderer _renderer;
+    [SerializeField] public SpriteRenderer tileBase;
+    [SerializeField] public GameObject resourceTile;
+
     [SerializeField] public GameObject highlight;
     [SerializeField] private GameObject clickedHighlight;
+
+    [SerializeField] private Sprite[] grassArrayLight;
+    [SerializeField] private Sprite[] grassArrayDark;
+
+    [SerializeField] private SpriteRenderer[] subTiles;
+    [SerializeField] private GameObject subTilesParent;
+
+
+    [SerializeField] private Sprite grassLight;
+    [SerializeField] private Sprite grassDark;
+
 
     public Vector2Int pos;
     public Transform worldPos;
@@ -25,16 +38,41 @@ public class Tile : MonoBehaviour
 
     public List<GameObject> objectsOnTile;
 
+    public bool isResourceTile;
+
+
+    int randomDarkGrass;
+    int randomLightGrass;
+
     private void Start()
     {
-        _renderer = GetComponent<SpriteRenderer>();
         objectsOnTile = new List<GameObject>();
         id = "ID:" + pos.x + "" + pos.y;
     }
 
     public void Init(bool altColorTile)
     {
-        _renderer.color = altColorTile ? altColor : baseColor;
+        //_renderer.color = altColorTile ? altColor : baseColor;
+
+        if (isResourceTile)
+        {
+            tileBase.sprite = altColorTile ? grassLight : grassDark;
+            subTilesParent.SetActive(false);          
+           return;
+        }
+
+        for (int i = 0; i < subTiles.Length; i++) //lag?
+        {
+            if (!altColorTile)
+            {
+                randomDarkGrass = Random.Range(0, grassArrayDark.Length);
+            }
+            else
+                randomLightGrass = Random.Range(0, grassArrayLight.Length);
+
+            subTiles[i].sprite = altColorTile ? grassArrayLight[randomLightGrass] : grassArrayDark[randomDarkGrass];
+        }
+
     }
 
     private void OnMouseEnter()
@@ -52,11 +90,14 @@ public class Tile : MonoBehaviour
     private void OnMouseUpAsButton()
     {
         clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
     }
 
     private void OnMouseDown()
     {
         clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
         worldPos = transform;
         Debug.Log(worldPos);
 
@@ -89,7 +130,7 @@ public class Tile : MonoBehaviour
             Debug.Log("added from tile");
         }
 
-        if (collision.CompareTag("Townhall"))
+        if (collision.CompareTag("Townhall") || collision.CompareTag("Dungeon"))
         {
             isOccupied = true;
         }

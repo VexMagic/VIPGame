@@ -34,6 +34,7 @@ public class BuildingObject : GridObject
 
     public override void EndDay()
     {
+
         if (outputStorage.Count == 0)
             daysWorked += amountWorking;
 
