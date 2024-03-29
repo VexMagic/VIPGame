@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Blacksmith
   m_EditorClassIdentifier: 
   unlockedLvl: 2
+  BuildingSprite: {fileID: 0}
+  TileType: 0
+  Cost: 30
   Input:
   - Amount: 2
     Resource: 1

@@ -101,14 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3ae6a81672c1b45aa9197edbdd9068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 0
   output: 3
   pos: {x: 0, y: 0}
   outputArrow: {fileID: 5650400528370789600}
   highlight: {fileID: 5971818803728847719}
-  tileType: 2
   buildingType: {fileID: 11400000, guid: 864411124d0bead40a3b82d232e3164d, type: 2}
-  workers: 5
+  workers: 0
   workerLimit: 5
   daysWorked: 0
   isWorking: 0

@@ -6047,7 +6047,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 7119477434685513007, guid: 1e1bab8a7ea978a46bdebca7a1291a43, type: 3}
-          m_ObjectArgumentAssemblyTypeName: BuildingObject, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: GridObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
