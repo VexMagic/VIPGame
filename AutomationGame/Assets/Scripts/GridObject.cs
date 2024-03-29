@@ -12,7 +12,6 @@ public class GridObject : MonoBehaviour
     public Vector2Int pos;
     [SerializeField] protected GameObject outputArrow;
     [SerializeField] protected GameObject highlight;
-    public TileType tileType;
 
     protected virtual void Start()
     {

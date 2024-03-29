@@ -46,7 +46,7 @@ public class DungeonDisplay : MonoBehaviour
         catch (System.Exception)
         {
 
-            Debug.Log("No dungeon spawned yet");
+            //Debug.Log("No dungeon spawned yet");
         }
     }
 
