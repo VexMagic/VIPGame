@@ -30,6 +30,8 @@ public class GridManager : MonoBehaviour
 
     public Sprite oreVein;
     public Sprite forest;
+    public Sprite riftCore;
+
 
 
     #endregion
@@ -114,6 +116,15 @@ public class GridManager : MonoBehaviour
                     spawnedTile.GetComponent<SpriteRenderer>().sprite = forest;
                     spawnedTile.isResourceTile = true;*/
                     ChangeTilePerResource(TileType.Forest, forest);
+
+                }
+
+                if (spawnedTile.pos == new Vector2(8, 7))//forest
+                {
+                    /*spawnedTile.tileType = TileType.Forest;
+                    spawnedTile.GetComponent<SpriteRenderer>().sprite = forest;
+                    spawnedTile.isResourceTile = true;*/
+                    ChangeTilePerResource(TileType.RiftCore, riftCore);
 
                 }
 

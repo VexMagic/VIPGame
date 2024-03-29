@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
             gold -= buildingToPlace.cost;         
             tile.isOccupied = true;
             tile.gridObject = buildingObject;
+            tile.resourceTile.SetActive(false);
             buildingObject.pos = tile.pos;
             buildingObject.output = customCursor.direction;
             if (!(buildingToPlace is Path))
@@ -229,7 +230,8 @@ public class GameManager : MonoBehaviour
 
             tile.isOccupied = false;
             tile.gridObject = null;
-
+            if (tile.isResourceTile)
+                tile.resourceTile.SetActive(true);
 
             #endregion
 

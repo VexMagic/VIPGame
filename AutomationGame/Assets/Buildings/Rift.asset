@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlockedLvl: 0
   BuildingSprite: {fileID: 0}
-  TileType: 0
+  TileType: 4
   Cost: 30
   Input: []
   Days: 15
