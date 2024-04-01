@@ -17,6 +17,8 @@ public class GridObject : MonoBehaviour
 
     protected virtual void Start()
     {
+        highlight = gameObject.transform.Find("Highlight").gameObject;
+        clickedHighlight = gameObject.transform.Find("clickedHighlight").gameObject;
         SetRotation();
         DayManager.instance.AddBuilding(this);
     }
@@ -124,4 +126,31 @@ public class GridObject : MonoBehaviour
 
         return tile.gridObject;
     }
+
+    private void OnMouseEnter()
+    {
+        highlight.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
+
+    }
+    private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
+    }
+
+    private void OnMouseDown()
+    {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
+        GameManager.Instance.CloseAllDisplays();
+    }
+
 }
+

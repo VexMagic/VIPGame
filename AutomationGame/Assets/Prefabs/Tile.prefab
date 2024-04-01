@@ -595,6 +595,12 @@ MonoBehaviour:
   subTilesParent: {fileID: 4887753455202178467}
   grassLight: {fileID: 1932266036, guid: 5a9a33c9d50ac4c4ba331e7596a1da0a, type: 3}
   grassDark: {fileID: -1293504513, guid: 5a9a33c9d50ac4c4ba331e7596a1da0a, type: 3}
+  tileSpriteList:
+  - {fileID: 1932266036, guid: 5a9a33c9d50ac4c4ba331e7596a1da0a, type: 3}
+  - {fileID: 21300000, guid: 655a9b465211720408efe21a09336065, type: 3}
+  - {fileID: -1492378783, guid: d47730e6655ca5947b1acef3a936b460, type: 3}
+  - {fileID: 579879451, guid: e957db39f8c47744690883419de9016e, type: 3}
+  - {fileID: -2126227652, guid: d33ae3e107cb62c46b195ee7d7ea68de, type: 3}
   pos: {x: 15, y: 8}
   worldPos: {fileID: 0}
   gridObject: {fileID: 0}

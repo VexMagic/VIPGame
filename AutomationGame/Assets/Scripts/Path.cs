@@ -13,7 +13,7 @@ public class Path : GridObject
     {
         base.SetRotation();
 
-        for (int i = 0; i < 4; i++) 
+        for (int i = 0; i < 4; i++)
         {
             Tile tile = GridManager.Instance.GetTileAtPos(pos + DirectionToGrid((Direction)i));
             if (tile.isOccupied)
@@ -40,7 +40,7 @@ public class Path : GridObject
         base.UpdateObject();
     }
 
-    private void OnMouseEnter()
+   /* private void OnMouseEnter()
     {
         highlight.SetActive(true);
     }
@@ -48,8 +48,22 @@ public class Path : GridObject
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
 
     }
+    private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
+    }*/
+
+    /*private void OnMouseDown()
+    {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
+        GameManager.Instance.CloseAllDisplays();
+    }*/
 
     //public override void InputResource(Storage.Resource resource)
     //{

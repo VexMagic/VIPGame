@@ -129,6 +129,8 @@ MonoBehaviour:
   level: 0
   highlight: {fileID: 7502114876335241626}
   clickedHighlight: {fileID: 5215821843151948663}
+  lockedBuildings:
+  - {fileID: 0}
 --- !u!1001 &2827091145282317546
 PrefabInstance:
   m_ObjectHideFlags: 0

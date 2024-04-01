@@ -6,7 +6,7 @@ public class Townhall : MonoBehaviour
 {
     public static Townhall Instance;
 
-
+    //public enum lockbuildings { Blacksmith, Barracks, Rift, PrintingPress, Academny, Church}
     [SerializeField] public int level;
 
     // Start is called before the first frame update

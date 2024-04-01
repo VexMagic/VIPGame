@@ -22,8 +22,6 @@ public class BuildingObject : GridObject
     protected override void Start()
     {
         base.Start();
-        highlight = gameObject.transform.Find("Highlight").gameObject;
-        clickedHighlight = gameObject.transform.Find("clickedHighlight").gameObject;
         needWorkerWarning.SetActive(false);
         
     }
@@ -94,7 +92,7 @@ public class BuildingObject : GridObject
 
         return true;
     }
-
+/*
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
@@ -105,14 +103,14 @@ public class BuildingObject : GridObject
         highlight.SetActive(false);
         clickedHighlight.SetActive(false);
 
-    }
+    }*/
 
-    private void OnMouseUpAsButton()
+    /*private void OnMouseUpAsButton()
     {
         clickedHighlight.SetActive(false);
         highlight.SetActive(true);
 
-    }
+    }*/
 
     private void OnMouseDown()
     {

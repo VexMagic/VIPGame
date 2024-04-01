@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] CustomCursor customCursor;
     [SerializeField] GameObject outPut;
 
-    [SerializeField] GameObject building2Unlock;
+    public List<GameObject> lockedBuildings = new List<GameObject>();
 
 
     Tile tile;
@@ -27,7 +27,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        building2Unlock.SetActive(false);
+        foreach (var item in lockedBuildings)
+        {
+            item.SetActive(false);
+        }
+        
     }
     private void Awake()
     {
@@ -41,15 +45,41 @@ public class GameManager : MonoBehaviour
     {
         goldDisplay.text = gold.ToString();
 
-        if(Townhall.Instance.level > 2) //prototype
-        {
-            building2Unlock.SetActive(true);
-        }
-
-
-
         BuildCheck();
         DestroyBuilding();
+
+        switch (Townhall.Instance.level)
+        {
+            case 2:
+                Unlock(lockedBuildings[0]);
+                Unlock(lockedBuildings[1]);
+                break;
+            case 3:
+                Unlock(lockedBuildings[2]);
+                break;
+            case 5:
+                Unlock(lockedBuildings[3]);
+                break;
+            case 7:
+                Unlock(lockedBuildings[4]);
+                Unlock(lockedBuildings[5]);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    void Unlock (GameObject building)
+    {
+        building.SetActive(true);
+    }
+
+    public void CloseAllDisplays()
+    {
+        BuildingDisplay.Instance.CloseDisplay();
+        TownhallDisplay.Instance.CloseDisplay();
+        DungeonDisplay.Instance.CloseDisplay();
     }
 
     private void BuildCheck()
@@ -87,21 +117,6 @@ public class GameManager : MonoBehaviour
                     Build(tile);
                 }
 
-                //switch (tile.tileType)
-                //{
-                //    case TileType.None:
-                //        Build("Path", tile);
-                //        break;
-                //    case TileType.Forest:
-                //        Build("Blacksmith", tile);//placeholder
-
-                //        break;
-                //    case TileType.OreDeposit:
-                //        Build("Mine", tile);
-                //        break;
-                //    default:
-                //        break;
-                //}
             }
 
             #endregion
