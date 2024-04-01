@@ -22,7 +22,10 @@ public class BuildingObject : GridObject
     protected override void Start()
     {
         base.Start();
+        highlight = gameObject.transform.Find("Highlight").gameObject;
+        clickedHighlight = gameObject.transform.Find("clickedHighlight").gameObject;
         needWorkerWarning.SetActive(false);
+        
     }
 
     public override void InputResource(Storage.Resource resource)
@@ -95,17 +98,26 @@ public class BuildingObject : GridObject
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
-
     }
 
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
+
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
 
     }
 
     private void OnMouseDown()
     {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
         BuildingDisplay.Instance.SelectBuilding(this);
     }
 }

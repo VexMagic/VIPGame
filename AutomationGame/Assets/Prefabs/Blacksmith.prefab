@@ -274,8 +274,9 @@ MonoBehaviour:
   cost: 0
   output: 3
   pos: {x: 0, y: 0}
-  outputArrow: {fileID: 5549433567756203877}
-  highlight: {fileID: 9149264431611698617}
+  outputArrow: {fileID: 0}
+  highlight: {fileID: 0}
+  clickedHighlight: {fileID: 0}
   buildingType: {fileID: 11400000, guid: d7d48cfab005c7948827096c6f7e79b9, type: 2}
   workers: 0
   workerLimit: 5
@@ -372,11 +373,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6098996980848171088, guid: b49133b7a29963e4684945e24c9ade38, type: 3}
   m_PrefabInstance: {fileID: 3593787114266953929}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &9149264431611698617 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5703533845779240304, guid: b49133b7a29963e4684945e24c9ade38, type: 3}
-  m_PrefabInstance: {fileID: 3593787114266953929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3594475699206043008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -434,11 +430,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0c9a4881898c2540b107d307047cd86, type: 3}
---- !u!1 &5549433567756203877 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8998659312935994085, guid: d0c9a4881898c2540b107d307047cd86, type: 3}
-  m_PrefabInstance: {fileID: 3594475699206043008}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8852962873949315287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5421821916284147031, guid: d0c9a4881898c2540b107d307047cd86, type: 3}

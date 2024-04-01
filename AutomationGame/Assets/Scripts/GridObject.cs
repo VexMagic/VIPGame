@@ -11,7 +11,9 @@ public class GridObject : MonoBehaviour
     public Direction output;
     public Vector2Int pos;
     [SerializeField] protected GameObject outputArrow;
-    [SerializeField] protected GameObject highlight;
+    protected GameObject highlight;
+    protected GameObject clickedHighlight;
+
 
     protected virtual void Start()
     {
