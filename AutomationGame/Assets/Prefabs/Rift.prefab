@@ -110,6 +110,7 @@ MonoBehaviour:
   buildingType: {fileID: 11400000, guid: abc8b3aa9384aa64ba6648d07610c25a, type: 2}
   workers: 0
   workerLimit: 5
+  resourceSprite: {fileID: -1291975684, guid: e957db39f8c47744690883419de9016e, type: 3}
   daysWorked: 0
   isWorking: 0
   amountWorking: 0

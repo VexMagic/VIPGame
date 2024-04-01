@@ -9,6 +9,7 @@ public class BuildingObject : GridObject
     public int workers;
     public int workerLimit;
 
+
     public int daysWorked;
     [SerializeField] private bool isWorking;
     [SerializeField] private int amountWorking;
