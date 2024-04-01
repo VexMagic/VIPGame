@@ -8,8 +8,10 @@ public class ResourceObject : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float rayDistance;
+    [SerializeField] private SpriteRenderer spriteRend;
 
-    private Storage.Resource resource;
+
+    public Storage.Resource resource;
 
     private Vector2Int direction;
     private Tile currentTile;
@@ -18,10 +20,10 @@ public class ResourceObject : MonoBehaviour
 
     public Tile onTile;
 
-
     public bool SetValues(Vector2Int pos, Storage.Resource resource)
     {
         this.resource = resource;
+        spriteRend.sprite = Storage.instance.GetSprite(resource);
 
         startingPos = pos;
         currentTile = GridManager.Instance.GetTileAtPos(pos);
@@ -35,6 +37,8 @@ public class ResourceObject : MonoBehaviour
         }
         return true;
     }
+
+
     private void Update()
     {
         if (!currentTile.isOccupied) //destroy resource if path is also destroyed

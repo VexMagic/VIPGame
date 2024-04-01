@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00d67cb44eea3143b7a5423cf06036f, type: 3}
   m_Name: Rift
   m_EditorClassIdentifier: 
+  unlockedLvl: 0
+  BuildingSprite: {fileID: 0}
+  TileType: 4
+  Cost: 30
   Input: []
   Days: 15
   Output:

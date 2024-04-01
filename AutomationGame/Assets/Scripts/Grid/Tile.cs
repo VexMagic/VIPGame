@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum TileType
 {
-    None, Forest, OreDeposit, Dungeon
+    None, Forest, OreDeposit, Dungeon, RiftCore
 }
 
 public class Tile : MonoBehaviour
@@ -57,7 +57,12 @@ public class Tile : MonoBehaviour
         if (isResourceTile)
         {
             tileBase.sprite = altColorTile ? grassLight : grassDark;
-            subTilesParent.SetActive(false);          
+            subTilesParent.SetActive(false);        
+            if(tileType == TileType.RiftCore)
+            {
+                Animator anim = resourceTile.AddComponent(typeof(Animator)) as Animator;
+                anim.runtimeAnimatorController = resourceTile.GetComponent<ControllerHolder>().controller;
+            }
            return;
         }
 

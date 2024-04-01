@@ -8,6 +8,8 @@ public class Filter : GridObject
     public Storage.Resource filteredResource;
 
     //public List<Storage.Resource> outputStorage = new List<Storage.Resource>();
+    
+
 
     public Direction GetOutputDirection(Storage.Resource resource)
     {

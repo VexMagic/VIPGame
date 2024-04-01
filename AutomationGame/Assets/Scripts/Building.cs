@@ -8,27 +8,19 @@ public class Building : ScriptableObject
 {
     [SerializeField] private int unlockedLvl; // maybe
 
+    [SerializeField] private Sprite BuildingSprite;
+    [SerializeField] private TileType TileType;
+    [SerializeField] private int Cost;
     [SerializeField] private List<InputOutput> Input;
     [SerializeField] private int Days;
     [SerializeField] private List<InputOutput> Output;
+
+    public Sprite buildingSprite => BuildingSprite;
+    public TileType tileType => TileType;
+    public int cost => Cost;
     public List<InputOutput> input => Input;
     public int days => Days;
     public List<InputOutput> output => Output;
-
-    //public bool HasResources()
-    //{
-    //    foreach (var item in input)
-    //    {
-    //        if (!Storage.instance.HasResource(item.resource, item.amount))
-    //        {
-    //            return false;
-    //        }
-    //    }
-
-    //    return true;
-    //}
-
-
 }
 
 [Serializable]

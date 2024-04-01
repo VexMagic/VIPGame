@@ -10,11 +10,17 @@ public class Storage : MonoBehaviour
 
     public enum Resource { Food, Metal, Weapon, Mana, Wood, Leather, Book, Warrior, Mage, Cleric }
 
+    public List<Sprite> spriteList = new List<Sprite>();
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+    }
+
+    public Sprite GetSprite(Resource resource)
+    {        
+        return spriteList[(int)resource];
     }
 }

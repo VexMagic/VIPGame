@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && buildingToPlace != null && !customCursor.destroyMode)
         {
-
+            Debug.Log("building");
             #region get Tile
 
             tile = null;
@@ -77,7 +78,11 @@ public class GameManager : MonoBehaviour
                 return;
             if (!tile.isOccupied && gold >= buildingToPlace.cost)
             {
-                if (buildingToPlace.tileType == tile.tileType)
+                if (!(buildingToPlace is BuildingObject))
+                {
+                    Build(tile);
+                }
+                else if ((buildingToPlace as BuildingObject).buildingType.tileType == tile.tileType)
                 {
                     Build(tile);
                 }
@@ -101,6 +106,8 @@ public class GameManager : MonoBehaviour
 
             #endregion
         }
+        else if (Input.GetMouseButtonDown(0) && buildingToPlace == null)
+            Debug.Log("building null");
 
         if (Input.GetMouseButtonDown(1)) //cancel 
         {
@@ -118,6 +125,7 @@ public class GameManager : MonoBehaviour
             gold -= buildingToPlace.cost;         
             tile.isOccupied = true;
             tile.gridObject = buildingObject;
+            tile.resourceTile.SetActive(false);
             buildingObject.pos = tile.pos;
             buildingObject.output = customCursor.direction;
             if (!(buildingToPlace is Path))
@@ -140,6 +148,24 @@ public class GameManager : MonoBehaviour
         customCursor.destroyMode = false;
         Cursor.visible = false;
         buildingToPlace = building;
+    }
+
+    public void CreateBuilding(Building building)
+    {
+        customCursor.gameObject.SetActive(true);
+        outPut.SetActive(true);
+        if (building.buildingSprite != null)
+            customCursor.GetComponent<SpriteRenderer>().sprite = building.buildingSprite;
+        
+        customCursor.GetComponent<SpriteRenderer>().color = Color.white;
+        customCursor.destroyMode = false;
+        Cursor.visible = false;
+        BuildingObject BuildingObjectToPlace = new BuildingObject();
+        BuildingObjectToPlace.buildingType = building;
+        BuildingObjectToPlace.cost = building.cost;
+        buildingToPlace = BuildingObjectToPlace;
+        if (BuildingObjectToPlace == null)
+            Debug.Log("uh oh");
     }
 
     public void GetHammer(Image hammer)
@@ -204,7 +230,8 @@ public class GameManager : MonoBehaviour
 
             tile.isOccupied = false;
             tile.gridObject = null;
-
+            if (tile.isResourceTile)
+                tile.resourceTile.SetActive(true);
 
             #endregion
 
