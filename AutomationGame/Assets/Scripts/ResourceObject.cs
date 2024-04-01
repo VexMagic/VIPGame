@@ -41,7 +41,7 @@ public class ResourceObject : MonoBehaviour
 
     private void Update()
     {
-        if (!currentTile.isOccupied) //destroy resource if path is also destroyed
+        if (!currentTile.isOccupied) //destroy resource if path/building is also destroyed
         {
             Destroy(gameObject);
         }

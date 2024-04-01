@@ -7,9 +7,13 @@ public class Filter : GridObject
 {
     public Storage.Resource filteredResource;
 
+    public SpriteRenderer filterItemIcon;
     //public List<Storage.Resource> outputStorage = new List<Storage.Resource>();
-    
 
+    private void Update()
+    {
+        filterItemIcon.sprite = Storage.instance.GetSprite(filteredResource);
+    }
 
     public Direction GetOutputDirection(Storage.Resource resource)
     {

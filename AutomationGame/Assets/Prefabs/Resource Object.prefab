@@ -104,11 +104,6 @@ MonoBehaviour:
   spriteRend: {fileID: 9160513781634109158}
   resource: 0
   onTile: {fileID: 0}
-  spriteList:
-  - {fileID: 21300000, guid: ff603e8ba4b4e2d4aba2ee4b151f5fbf, type: 3}
-  - {fileID: 21300000, guid: 739a9bf33828ced448237459a657adc0, type: 3}
-  - {fileID: 21300000, guid: e8b4b360c47aeaf4bb0901eec5ed2acd, type: 3}
-  - {fileID: -1291975684, guid: e957db39f8c47744690883419de9016e, type: 3}
 --- !u!58 &8382322328875812449
 CircleCollider2D:
   m_ObjectHideFlags: 0

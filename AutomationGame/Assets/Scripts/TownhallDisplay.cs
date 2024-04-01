@@ -51,6 +51,7 @@ public class TownhallDisplay : MonoBehaviour
         GameManager.Instance.gold -= int.Parse(cost.text);
         cost.text = (int.Parse(cost.text) * townhall.level).ToString(); //balance cost later
         UpdateTownhallDisplay();
+
     }
 
     public void CloseDisplay()

@@ -29,6 +29,10 @@ public class Tile : MonoBehaviour
     [SerializeField] private Sprite grassLight;
     [SerializeField] private Sprite grassDark;
 
+    [Header("Resource Tiles")]
+    [SerializeField] private List<Sprite> tileSpriteList = new List<Sprite>();
+
+
 
     public Vector2Int pos;
     public Transform worldPos;
@@ -56,6 +60,7 @@ public class Tile : MonoBehaviour
 
         if (isResourceTile)
         {
+            resourceTile.GetComponent<SpriteRenderer>().sprite = GetSprite(tileType);
             tileBase.sprite = altColorTile ? grassLight : grassDark;
             subTilesParent.SetActive(false);        
             if(tileType == TileType.RiftCore)
@@ -106,14 +111,7 @@ public class Tile : MonoBehaviour
         worldPos = transform;
         Debug.Log(worldPos);
 
-        CloseAllDisplays();
-    }
-
-    private void CloseAllDisplays()
-    {
-        BuildingDisplay.Instance.CloseDisplay();
-        TownhallDisplay.Instance.CloseDisplay();
-        DungeonDisplay.Instance.CloseDisplay();
+        GameManager.Instance.CloseAllDisplays();
     }
 
     public void SetActive(bool active) // unlocking land
@@ -148,6 +146,11 @@ public class Tile : MonoBehaviour
             objectsOnTile.Remove(collision.gameObject);
             Debug.Log("removed from tile");
         }
+    }
+
+    public Sprite GetSprite(TileType tileType)
+    {
+        return tileSpriteList[(int)tileType];
     }
 
 }

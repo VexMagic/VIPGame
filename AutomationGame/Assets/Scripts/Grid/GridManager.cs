@@ -25,16 +25,6 @@ public class GridManager : MonoBehaviour
     public GameObject townhall;
     public GameObject dungeon;
 
-    [Header("Resource Tiles")]
-    #region resource tiles
-
-    public Sprite oreVein;
-    public Sprite forest;
-    public Sprite riftCore;
-
-
-
-    #endregion
 
     Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
     private void Awake()
@@ -60,7 +50,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O)) //spawn Dungeon
         {
             Vector2Int minRange = new Vector2Int(8, 11);
             Vector2Int maxRange = new Vector2Int(0, 9);
@@ -103,28 +93,18 @@ public class GridManager : MonoBehaviour
                 }
                 if (spawnedTile.pos == new Vector2(2, 2)) //ore desposit
                 {
-                    /*spawnedTile.tileType = TileType.OreDeposit;
-                    spawnedTile.GetComponent<SpriteRenderer>().sprite = oreVein;
-                    spawnedTile.isResourceTile = true;
-                    spawnedTile.resourceTile.SetActive(true);*/
-                    ChangeTilePerResource(TileType.OreDeposit, oreVein);
+                    ChangeTileType(TileType.OreDeposit);
 
                 }
                 if (spawnedTile.pos == new Vector2(4, 5))//forest
                 {
-                    /*spawnedTile.tileType = TileType.Forest;
-                    spawnedTile.GetComponent<SpriteRenderer>().sprite = forest;
-                    spawnedTile.isResourceTile = true;*/
-                    ChangeTilePerResource(TileType.Forest, forest);
+                    ChangeTileType(TileType.Forest);
 
                 }
 
                 if (spawnedTile.pos == new Vector2(8, 7))//forest
                 {
-                    /*spawnedTile.tileType = TileType.Forest;
-                    spawnedTile.GetComponent<SpriteRenderer>().sprite = forest;
-                    spawnedTile.isResourceTile = true;*/
-                    ChangeTilePerResource(TileType.RiftCore, riftCore);
+                    ChangeTileType(TileType.RiftCore);
 
                 }
 
@@ -143,12 +123,11 @@ public class GridManager : MonoBehaviour
         cam.transform.position = new Vector3((float)width / 2 - 0.5f + offset.x, (float)height / 2 - 0.5f + offset.y, -10); //cam center
     }
 
-    private void ChangeTilePerResource(TileType type, Sprite typeSprite)
+    private void ChangeTileType(TileType type)
     {
         spawnedTile.tileType = type;
         spawnedTile.isResourceTile = true;
         spawnedTile.resourceTile.SetActive(true);
-        spawnedTile.resourceTile.GetComponent<SpriteRenderer>().sprite = typeSprite;
     }
 
     public Tile GetTileAtPos(Vector2Int pos)

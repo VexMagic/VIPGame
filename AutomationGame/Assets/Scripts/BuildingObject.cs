@@ -23,6 +23,7 @@ public class BuildingObject : GridObject
     {
         base.Start();
         needWorkerWarning.SetActive(false);
+        
     }
 
     public override void InputResource(Storage.Resource resource)
@@ -91,21 +92,30 @@ public class BuildingObject : GridObject
 
         return true;
     }
-
+/*
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
-
     }
 
     private void OnMouseExit()
     {
         highlight.SetActive(false);
+        clickedHighlight.SetActive(false);
 
-    }
+    }*/
+
+    /*private void OnMouseUpAsButton()
+    {
+        clickedHighlight.SetActive(false);
+        highlight.SetActive(true);
+
+    }*/
 
     private void OnMouseDown()
     {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
         BuildingDisplay.Instance.SelectBuilding(this);
     }
 }
