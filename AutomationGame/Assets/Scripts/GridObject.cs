@@ -152,5 +152,10 @@ public class GridObject : MonoBehaviour
         GameManager.Instance.CloseAllDisplays();
     }
 
+    private void OnDestroy()
+    {
+        DayManager.instance.RemoveBuilding(this);
+    }
+
 }
 

@@ -54,6 +54,9 @@ public class DungeonDisplay : MonoBehaviour
 
     public void SelectDungeon()
     {
+        if (CustomCursor.Instance != null && CustomCursor.Instance.destroyMode)
+            return;
+
         animator.SetBool("IsOpen", true);
         BuildingDisplay.Instance.CloseDisplay();
         TownhallDisplay.Instance.CloseDisplay();

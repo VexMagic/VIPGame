@@ -28,6 +28,10 @@ public class BuildingDisplay : MonoBehaviour
 
     public void SelectBuilding(BuildingObject buildingObject)
     {
+
+        if (CustomCursor.Instance != null && CustomCursor.Instance.destroyMode)
+            return;
+
         animator.SetBool("IsOpen", true);
         TownhallDisplay.Instance.CloseDisplay();
         DungeonDisplay.Instance.CloseDisplay();

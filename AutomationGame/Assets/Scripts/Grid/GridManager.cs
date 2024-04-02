@@ -25,6 +25,8 @@ public class GridManager : MonoBehaviour
     public GameObject townhall;
     public GameObject dungeon;
 
+    bool isDungeonSpawned;
+
 
     Vector3 offset3 = new Vector3(0.5f, 0.5f, 0);
     private void Awake()
@@ -50,7 +52,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.O)) //spawn Dungeon
+        if (!isDungeonSpawned) //spawn Dungeon
         {
             Vector2Int minRange = new Vector2Int(8, 11);
             Vector2Int maxRange = new Vector2Int(0, 9);
@@ -67,7 +69,7 @@ public class GridManager : MonoBehaviour
                 tileDung.tileType = TileType.Dungeon;
 
             }
-
+            isDungeonSpawned = true;
             //spawnedTile._renderer.color = Color.red;
 
         }
@@ -102,7 +104,7 @@ public class GridManager : MonoBehaviour
 
                 }
 
-                if (spawnedTile.pos == new Vector2(8, 7))//forest
+                if (spawnedTile.pos == new Vector2(8, 7))//mana
                 {
                     ChangeTileType(TileType.RiftCore);
 

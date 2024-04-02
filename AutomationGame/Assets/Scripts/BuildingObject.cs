@@ -36,6 +36,8 @@ public class BuildingObject : GridObject
 
     public override void EndDay()
     {
+        if (CustomCursor.Instance.destroyMode)
+            return;
 
         if (outputStorage.Count == 0)
             daysWorked += amountWorking;

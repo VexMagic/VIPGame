@@ -135,6 +135,9 @@ public class GameManager : MonoBehaviour
     public void Build(Tile tile)
     {
         //if (buildingToPlace.name == buildingName)
+        if ((buildingToPlace is Path || buildingToPlace is Filter) && tile.isResourceTile)
+            return;
+
         {
             GridObject buildingObject = Instantiate(buildingToPlace, tile.transform.position, Quaternion.identity);
             gold -= buildingToPlace.cost;         
@@ -250,6 +253,7 @@ public class GameManager : MonoBehaviour
 
             #endregion
 
+            BuildingDisplay.Instance.CloseDisplay();
 
         }
     }

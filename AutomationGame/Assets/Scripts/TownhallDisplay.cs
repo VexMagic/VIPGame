@@ -39,6 +39,9 @@ public class TownhallDisplay : MonoBehaviour
 
     public void SelectTownhall()
     {
+        if (CustomCursor.Instance != null && CustomCursor.Instance.destroyMode)
+            return;
+
         animator.SetBool("IsOpen", true);
         BuildingDisplay.Instance.CloseDisplay();
         DungeonDisplay.Instance.CloseDisplay();
@@ -49,7 +52,7 @@ public class TownhallDisplay : MonoBehaviour
     {
         townhall.level++;
         GameManager.Instance.gold -= int.Parse(cost.text);
-        cost.text = (int.Parse(cost.text) * townhall.level).ToString(); //balance cost later
+        cost.text = (int.Parse(cost.text) + 100).ToString(); //balance cost later
         UpdateTownhallDisplay();
 
     }
