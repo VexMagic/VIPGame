@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         BuildingDisplay.Instance.CloseDisplay();
         TownhallDisplay.Instance.CloseDisplay();
         DungeonDisplay.Instance.CloseDisplay();
+        FilterDisplay.Instance.CloseDisplay();
     }
 
     private void BuildCheck()

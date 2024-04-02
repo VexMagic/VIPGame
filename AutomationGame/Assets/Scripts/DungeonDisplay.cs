@@ -60,6 +60,7 @@ public class DungeonDisplay : MonoBehaviour
         animator.SetBool("IsOpen", true);
         BuildingDisplay.Instance.CloseDisplay();
         TownhallDisplay.Instance.CloseDisplay();
+        FilterDisplay.Instance.CloseDisplay();
         UpdateDungeonDisplay();
     }
 

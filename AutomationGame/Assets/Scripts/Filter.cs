@@ -32,26 +32,10 @@ public class Filter : GridObject
         return outputDrection;
     }
 
-
-    //public override void EndDay()
-    //{
-    //    if (outputStorage.Count > 0)
-    //    {
-    //        if (outputStorage[0] == filteredResource)
-    //        {
-    //            if (OutputResource(outputStorage[0], (Direction)(((int)output + 1) % 4)))
-    //                outputStorage.RemoveAt(0);
-    //        }
-    //        else
-    //        {
-    //            if (OutputResource(outputStorage[0], output))
-    //                outputStorage.RemoveAt(0);
-    //        }
-    //    }
-    //}
-
-    //public override void InputResource(Storage.Resource resource)
-    //{
-    //    outputStorage.Add(resource);
-    //}
+    private void OnMouseDown()
+    {
+        clickedHighlight.SetActive(true);
+        highlight.SetActive(false);
+        FilterDisplay.Instance.SelectFilter(this);
+    }
 }
