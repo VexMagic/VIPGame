@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class CustomCursor : MonoBehaviour
 {
+    public static CustomCursor Instance;
+
     public Vector2 mousePos;
     public GridObject.Direction direction;
     public GameObject directionArrow;
     [SerializeField] Vector2 iconOffset = new Vector2(0.75f, 0.3f);
     public bool destroyMode;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+    }
+
+
     private void Start()
     {
         if (directionArrow != null)

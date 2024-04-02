@@ -78,4 +78,9 @@ public class DayManager : MonoBehaviour
     {
         allBuildings.Add(buildingObject);
     }
+
+    public void RemoveBuilding(GridObject buildingObject)
+    {
+        allBuildings.Remove(buildingObject);
+    }
 }
