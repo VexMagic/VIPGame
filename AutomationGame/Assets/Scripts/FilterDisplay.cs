@@ -43,6 +43,7 @@ public class FilterDisplay : MonoBehaviour
         if (filter != null)
         {
             filter.filteredResource = resource;
+            filter.selected = true;
         }
     }
 
@@ -56,7 +57,7 @@ public class FilterDisplay : MonoBehaviour
         animator.SetBool("IsOpen", true);
         BuildingDisplay.Instance.CloseDisplay();
         DungeonDisplay.Instance.CloseDisplay();
-        DungeonDisplay.Instance.CloseDisplay();
+        TownhallDisplay.Instance.CloseDisplay();
     }
 
     public void CloseDisplay()

@@ -193,7 +193,7 @@ MonoBehaviour:
   output: 0
   pos: {x: 0, y: 0}
   outputArrow: {fileID: 1929541374058894484}
-  filteredResource: 4
+  filteredResource: 0
   filterItemIcon: {fileID: 7619221657186231845}
 --- !u!61 &8662204414515368233
 BoxCollider2D:
@@ -329,9 +329,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3637908931834773222}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.292, y: -0.19, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.292, y: -0.141, z: 0}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1929541374058894485}

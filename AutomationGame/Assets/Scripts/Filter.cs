@@ -9,10 +9,34 @@ public class Filter : GridObject
 
     public SpriteRenderer filterItemIcon;
     //public List<Storage.Resource> outputStorage = new List<Storage.Resource>();
+    public bool selected;
+    protected override void Start()
+    {
+        base.Start();
+        switch (output)
+        {
+            case Direction.Up:
+
+                filterItemIcon.transform.localRotation = Quaternion.Euler(0, 0, 180);
+                break;
+            case Direction.Right:
+                filterItemIcon.transform.localRotation = Quaternion.Euler(0, 0, -90);
+                break;
+            case Direction.Down:
+                break;
+            case Direction.Left:
+                filterItemIcon.transform.localRotation = Quaternion.Euler(0, 0, 90);
+
+                break;
+            default:
+                break;
+        }
+    }
 
     private void Update()
     {
-        filterItemIcon.sprite = Storage.instance.GetSprite(filteredResource);
+        if (selected)
+            filterItemIcon.sprite = Storage.instance.GetSprite(filteredResource);
     }
 
     public Direction GetOutputDirection(Storage.Resource resource)
@@ -27,6 +51,8 @@ public class Filter : GridObject
         {
             outputDrection = output;
         }
+
+
 
         //Debug.Log(outputDrection);
         return outputDrection;
